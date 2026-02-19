@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Motívame</string>
+    <string name="notification_channel_name">Recordatorios de Tareas</string>
+    <string name="notification_channel_description">Notificaciones para recordarte tus tareas pendientes</string>
+</resources>
