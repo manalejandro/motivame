@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">やる気アップ</string>
+    <string name="notification_channel_name">タスクリマインダー</string>
+    <string name="notification_channel_description">保留中のタスクを通知するお知らせ</string>
+
+    <string name="settings_content_desc">設定</string>
+    <string name="add_task_content_desc">タスクを追加</string>
+    <string name="empty_state_title">旅を始めよう！</string>
+    <string name="empty_state_subtitle">最初のタスクと目標を追加してモチベーションを維持しよう</string>
+    <string name="goals_label">🎯 目標：</string>
+    <string name="task_paused">⏸️ 一時停止中</string>
+    <string name="toggle_active_desc">タスクの有効/一時停止を切り替え</string>
+    <string name="delete_task_desc">削除</string>
+    <string name="delete_task_title">タスクを削除</string>
+    <string name="delete_task_confirm">\'%1$s\' を削除してもよろしいですか？</string>
+    <string name="delete">削除</string>
+    <string name="cancel">キャンセル</string>
+
+    <string name="new_task_title">新しいタスク</string>
+    <string name="back_content_desc">戻る</string>
+    <string name="what_to_remember">📝 何を覚えておく必要がありますか？</string>
+    <string name="task_title_label">タスクのタイトル</string>
+    <string name="task_title_placeholder">例：運動する</string>
+    <string name="what_to_achieve">🎯 何を達成したいですか？</string>
+    <string name="new_goal_label">新しい目標</string>
+    <string name="new_goal_placeholder">例：健康を改善する</string>
+    <string name="add_goal_desc">目標を追加</string>
+    <string name="goals_added">追加された目標：</string>
+    <string name="delete_goal_desc">目標を削除</string>
+    <string name="daily_reminders_title">🔔 毎日のリマインダー</string>
+    <string name="daily_reminders_subtitle">9:00〜21:00の間のリマインダー数</string>
+    <string name="reminder_singular">回のリマインダー</string>
+    <string name="reminder_plural">回のリマインダー</string>
+    <string name="decrease_desc">減らす</string>
+    <string name="increase_desc">増やす</string>
+    <string name="interval_hint">⏱️ 約%1$sごとに1回のリマインダー</string>
+    <string name="repeat_days_title">📅 何日ごとに繰り返す</string>
+    <string name="repeat_days_subtitle">各リマインダーサイクル間の日数</string>
+    <string name="day_singular">日</string>
+    <string name="day_plural">日</string>
+    <string name="decrease_days_desc">日数を減らす</string>
+    <string name="increase_days_desc">日数を増やす</string>
+    <string name="repeat_every_day">🔁 毎日リマインダー</string>
+    <string name="repeat_every_n_days">🔁 %1$d日ごとにリマインダー、重複しないよう分散</string>
+    <string name="save_task">タスクを保存</string>
+    <string name="edit_task_title">タスクを編集</string>
+    <string name="update_task">変更を保存</string>
+    <string name="pause_task_desc">タスクを一時停止</string>
+    <string name="resume_task_desc">タスクを再開</string>
+    <string name="long_press_hint">長押しで編集</string>
+    <string name="task_summary_reminders">%1$d回/日 · %2$d日ごと</string>
+    <string name="task_summary_reminders_daily">%1$d回/日 · 毎日</string>
+
+    <string name="settings_title">設定</string>
+    <string name="notifications_section">🔔 通知</string>
+    <string name="daily_reminders_setting">毎日のリマインダー</string>
+    <string name="daily_reminders_desc">モチベーションを高める通知を受け取る</string>
+    <string name="sound_setting">サウンド</string>
+    <string name="sound_desc">通知時にサウンドを再生する</string>
+    <string name="test_section">🧪 テスト</string>
+    <string name="test_desc">すべてが正常に機能していることを確認するためにテスト通知を送信する</string>
+    <string name="send_test_notification">テスト通知を送信</string>
+    <string name="add_task_to_test">⚠️ 通知をテストするには少なくとも1つのタスクを追加してください</string>
+    <string name="about_section">ℹ️ アプリについて</string>
+    <string name="app_version">やる気アップ v1.0</string>
+    <string name="app_description">日常のタスクでモチベーションを維持するためのコンパニオン</string>
+    <string name="developed_by">開発者</string>
+    <string name="developer_url">manalejandro.com</string>
+    <string name="github_label">GitHubリポジトリ</string>
+    <string name="github_url">https://github.com/manalejandro/motivame</string>
+
+    <string name="language_section">🌐 言語</string>
+    <string name="language_desc">アプリケーションの言語を選択してください</string>
+    <string name="language_restart_hint">言語を適用するためにアプリが再起動します</string>
+
+    <string name="notification_default_message">このタスクを完了することを忘れずに！</string>
+    <string name="notification_big_text">📝 タスク：%1$s\n\n🎯 リマインダー：%2$s</string>
+</resources>
+

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">동기부여</string>
+    <string name="notification_channel_name">작업 알림</string>
+    <string name="notification_channel_description">대기 중인 작업을 상기시키는 알림</string>
+
+    <string name="settings_content_desc">설정</string>
+    <string name="add_task_content_desc">작업 추가</string>
+    <string name="empty_state_title">여정을 시작하세요!</string>
+    <string name="empty_state_subtitle">첫 번째 작업과 목표를 추가하여 동기를 유지하세요</string>
+    <string name="goals_label">🎯 목표:</string>
+    <string name="task_paused">⏸️ 일시 중지됨</string>
+    <string name="toggle_active_desc">작업 활성화/일시 중지</string>
+    <string name="delete_task_desc">삭제</string>
+    <string name="delete_task_title">작업 삭제</string>
+    <string name="delete_task_confirm">\'%1$s\'을(를) 정말 삭제하시겠습니까?</string>
+    <string name="delete">삭제</string>
+    <string name="cancel">취소</string>
+
+    <string name="new_task_title">새 작업</string>
+    <string name="back_content_desc">뒤로</string>
+    <string name="what_to_remember">📝 무엇을 기억해야 하나요?</string>
+    <string name="task_title_label">작업 제목</string>
+    <string name="task_title_placeholder">예: 운동하기</string>
+    <string name="what_to_achieve">🎯 무엇을 달성하고 싶나요?</string>
+    <string name="new_goal_label">새 목표</string>
+    <string name="new_goal_placeholder">예: 건강 개선</string>
+    <string name="add_goal_desc">목표 추가</string>
+    <string name="goals_added">추가된 목표:</string>
+    <string name="delete_goal_desc">목표 삭제</string>
+    <string name="daily_reminders_title">🔔 일일 알림</string>
+    <string name="daily_reminders_subtitle">오전 9시부터 오후 9시 사이의 알림 횟수</string>
+    <string name="reminder_singular">회 알림</string>
+    <string name="reminder_plural">회 알림</string>
+    <string name="decrease_desc">줄이기</string>
+    <string name="increase_desc">늘리기</string>
+    <string name="interval_hint">⏱️ 약 %1$s마다 알림 1회</string>
+    <string name="repeat_days_title">📅 며칠마다 반복</string>
+    <string name="repeat_days_subtitle">각 알림 주기 사이의 일수 간격</string>
+    <string name="day_singular">일</string>
+    <string name="day_plural">일</string>
+    <string name="decrease_days_desc">일수 줄이기</string>
+    <string name="increase_days_desc">일수 늘리기</string>
+    <string name="repeat_every_day">🔁 매일 알림</string>
+    <string name="repeat_every_n_days">🔁 %1$d일마다 알림, 겹치지 않게 분산</string>
+    <string name="save_task">작업 저장</string>
+    <string name="edit_task_title">작업 편집</string>
+    <string name="update_task">변경 사항 저장</string>
+    <string name="pause_task_desc">작업 일시 중지</string>
+    <string name="resume_task_desc">작업 재개</string>
+    <string name="long_press_hint">길게 눌러 편집</string>
+    <string name="task_summary_reminders">%1$d회/일 · %2$d일마다</string>
+    <string name="task_summary_reminders_daily">%1$d회/일 · 매일</string>
+
+    <string name="settings_title">설정</string>
+    <string name="notifications_section">🔔 알림</string>
+    <string name="daily_reminders_setting">일일 알림</string>
+    <string name="daily_reminders_desc">동기 부여 알림 받기</string>
+    <string name="sound_setting">소리</string>
+    <string name="sound_desc">알림과 함께 소리 재생</string>
+    <string name="test_section">🧪 테스트</string>
+    <string name="test_desc">모든 것이 올바르게 작동하는지 확인하기 위해 테스트 알림을 보냅니다</string>
+    <string name="send_test_notification">테스트 알림 보내기</string>
+    <string name="add_task_to_test">⚠️ 알림을 테스트하려면 최소 하나의 작업을 추가하세요</string>
+    <string name="about_section">ℹ️ 앱 정보</string>
+    <string name="app_version">동기부여 v1.0</string>
+    <string name="app_description">일상 작업에서 동기를 유지하는 데 도움을 주는 동반자</string>
+    <string name="developed_by">개발자</string>
+    <string name="developer_url">manalejandro.com</string>
+    <string name="github_label">GitHub 저장소</string>
+    <string name="github_url">https://github.com/manalejandro/motivame</string>
+
+    <string name="language_section">🌐 언어</string>
+    <string name="language_desc">애플리케이션 언어를 선택하세요</string>
+    <string name="language_restart_hint">언어 적용을 위해 앱이 재시작됩니다</string>
+
+    <string name="notification_default_message">이 작업을 완료하는 것을 잊지 마세요!</string>
+    <string name="notification_big_text">📝 작업: %1$s\n\n🎯 알림: %2$s</string>
+</resources>
+

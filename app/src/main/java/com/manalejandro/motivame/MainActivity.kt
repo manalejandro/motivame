@@ -1,10 +1,13 @@
 package com.manalejandro.motivame
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.*
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.work.*
 import com.manalejandro.motivame.data.Task
@@ -14,6 +17,7 @@ import com.manalejandro.motivame.ui.screens.MainScreen
 import com.manalejandro.motivame.ui.screens.SettingsScreen
 import com.manalejandro.motivame.ui.theme.MotivameTheme
 import com.manalejandro.motivame.ui.viewmodel.TaskViewModel
+import com.manalejandro.motivame.util.LocaleHelper
 import com.manalejandro.motivame.worker.DailyReminderWorker
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -21,8 +25,20 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.util.Calendar
 import java.util.concurrent.TimeUnit
+import kotlin.random.Random
 
 class MainActivity : ComponentActivity() {
+
+    override fun attachBaseContext(newBase: Context) {
+        // Leer idioma de forma síncrona antes de inflar la UI
+        val langCode = runCatching {
+            kotlinx.coroutines.runBlocking {
+                TaskRepository(newBase).language.first()
+            }
+        }.getOrDefault("es")
+        super.attachBaseContext(LocaleHelper.wrap(newBase, langCode))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -32,7 +48,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             MotivameTheme {
-                MotivameApp(onRescheduleReminders = { scheduleAllReminders() })
+                MotivameApp(onRescheduleReminders = { enabled -> scheduleAllReminders(enabled) })
             }
         }
     }
@@ -40,19 +56,21 @@ class MainActivity : ComponentActivity() {
     /**
      * Cancela todos los workers anteriores y programa nuevos recordatorios
      * para cada tarea activa, distribuyendo los avisos entre las 9:00 y las 21:00.
+     * @param notificationsEnabled valor ya conocido, para evitar condición de carrera con DataStore.
+     *        Si es null, se lee del DataStore (solo al arrancar la app).
      */
-    fun scheduleAllReminders() {
+    fun scheduleAllReminders(notificationsEnabled: Boolean? = null) {
         CoroutineScope(Dispatchers.IO).launch {
             val repository = TaskRepository(applicationContext)
-            val tasks = repository.tasks.first()
-            val notificationEnabled = repository.notificationEnabled.first()
 
             // Cancelar todos los workers existentes de recordatorios de tareas
             WorkManager.getInstance(applicationContext)
                 .cancelAllWorkByTag("task_reminder")
 
-            if (!notificationEnabled) return@launch
+            val enabled = notificationsEnabled ?: repository.notificationEnabled.first()
+            if (!enabled) return@launch
 
+            val tasks = repository.tasks.first()
             tasks.filter { it.isActive }.forEach { task ->
                 scheduleRemindersForTask(task)
             }
@@ -64,32 +82,40 @@ class MainActivity : ComponentActivity() {
         val cycleDays = task.repeatEveryDays.coerceIn(1, 30)
         val workManager = WorkManager.getInstance(applicationContext)
 
-        // Ventana de notificaciones: 9:00 a 21:00 (12 horas = 720 minutos)
-        val windowStartHour = 9
-        val windowEndHour = 21
-        val windowMinutes = (windowEndHour - windowStartHour) * 60  // 720 min
+        // Ventana de notificaciones: 9:00 a 21:00 (720 minutos disponibles)
+        val windowStartMinute = 9 * 60   // 540
+        val windowEndMinute   = 21 * 60  // 1260
+        val windowSize        = windowEndMinute - windowStartMinute  // 720
 
-        // Distribuir los N avisos a lo largo del ciclo de 'cycleDays' días,
-        // repartidos uniformemente para que no coincidan todos el mismo día.
-        // Cada aviso cae en un día y hora distintos dentro del ciclo.
-        val totalSlots = cycleDays  // un aviso por día máximo
-        val step = totalSlots.toDouble() / reminders  // paso fraccionario entre avisos
+        // Distribuir los N avisos en días distintos dentro del ciclo.
+        // Si reminders <= cycleDays cada aviso va a un día diferente;
+        // si hay más avisos que días, se reparten de forma ciclica.
+        val dayAssignments = (0 until reminders).map { i -> i % cycleDays }
+
+        // Generar horas aleatorias únicas (en minutos desde medianoche)
+        // Para cada aviso elegimos un minuto al azar dentro de [540, 1260)
+        // asegurándonos de que no coincida con ningún otro aviso ya asignado.
+        val usedMinutes = mutableSetOf<Int>()
+        val minuteAssignments = mutableListOf<Int>()
+
+        repeat(reminders) {
+            var candidate: Int
+            var attempts = 0
+            do {
+                candidate = windowStartMinute + Random.nextInt(windowSize)
+                attempts++
+                // Tras muchos intentos (espacio muy saturado) relajamos la condición
+                // exigiendo sólo minutos distintos en el mismo día
+            } while (usedMinutes.contains(candidate) && attempts < windowSize)
+            usedMinutes.add(candidate)
+            minuteAssignments.add(candidate)
+        }
 
         for (i in 0 until reminders) {
-            // Día dentro del ciclo (0-based), distribuido uniformemente
-            val slotIndex = (i * step).toInt()
-            val dayOffset = slotIndex % cycleDays
-
-            // Hora dentro de la ventana: distribuida para que los avisos del mismo día
-            // no se solapen, o usando posición i para variar la hora entre días
-            val offsetMinutes = if (reminders == 1) {
-                windowMinutes / 2  // Al mediodía si solo hay 1 aviso
-            } else {
-                ((windowMinutes * i) / reminders).coerceIn(0, windowMinutes - 30)
-            }
-
-            val targetHour = windowStartHour + offsetMinutes / 60
-            val targetMinute = offsetMinutes % 60
+            val dayOffset    = dayAssignments[i]
+            val totalMinutes = minuteAssignments[i]
+            val targetHour   = totalMinutes / 60
+            val targetMinute = totalMinutes % 60
 
             val delayMs = calculateDelayToTimeWithDayOffset(targetHour, targetMinute, dayOffset)
 
@@ -106,11 +132,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    /**
-     * Calcula el retardo en milisegundos hasta la próxima ocurrencia de la hora indicada.
-     */
-    private fun calculateDelayToTime(hour: Int, minute: Int): Long =
-        calculateDelayToTimeWithDayOffset(hour, minute, 0)
 
     /**
      * Calcula el retardo hasta la hora indicada más un desplazamiento de días.
@@ -141,24 +162,51 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun MotivameApp(onRescheduleReminders: () -> Unit = {}) {
+fun MotivameApp(onRescheduleReminders: (Boolean) -> Unit = {}) {
     val viewModel: TaskViewModel = viewModel()
+    val context = LocalContext.current
     var currentScreen by remember { mutableStateOf("main") }
+    var taskToEdit by remember { mutableStateOf<Task?>(null) }
 
     // Registrar callback para reprogramar avisos cuando cambian las tareas
     LaunchedEffect(viewModel) {
-        viewModel.onRescheduleReminders = onRescheduleReminders
+        viewModel.onRescheduleReminders = { enabled -> onRescheduleReminders(enabled) }
+    }
+
+    // Interceptar el botón físico Atrás del sistema
+    BackHandler(enabled = currentScreen != "main") {
+        taskToEdit = null
+        currentScreen = "main"
+    }
+    // En la pantalla principal, minimizar en lugar de cerrar
+    BackHandler(enabled = currentScreen == "main") {
+        (context as? ComponentActivity)?.moveTaskToBack(true)
     }
 
     when (currentScreen) {
         "main" -> MainScreen(
             viewModel = viewModel,
-            onNavigateToAddTask = { currentScreen = "add_task" },
-            onNavigateToSettings = { currentScreen = "settings" }
+            onNavigateToAddTask = {
+                taskToEdit = null
+                currentScreen = "add_task"
+            },
+            onNavigateToSettings = { currentScreen = "settings" },
+            onEditTask = { task ->
+                taskToEdit = task
+                currentScreen = "edit_task"
+            }
         )
         "add_task" -> AddTaskScreen(
             viewModel = viewModel,
             onNavigateBack = { currentScreen = "main" }
+        )
+        "edit_task" -> AddTaskScreen(
+            viewModel = viewModel,
+            onNavigateBack = {
+                taskToEdit = null
+                currentScreen = "main"
+            },
+            taskToEdit = taskToEdit
         )
         "settings" -> SettingsScreen(
             viewModel = viewModel,

@@ -1,10 +1,15 @@
 package com.manalejandro.motivame.ui.screens
 
 import android.Manifest
+import android.app.Activity
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
@@ -15,12 +20,15 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
-import com.manalejandro.motivame.data.TaskRepository
+import com.manalejandro.motivame.R
 import com.manalejandro.motivame.notifications.NotificationHelper
 import com.manalejandro.motivame.ui.viewmodel.TaskViewModel
+import com.manalejandro.motivame.util.LocaleHelper
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -34,6 +42,9 @@ fun SettingsScreen(
     val notificationEnabled by viewModel.notificationEnabled.collectAsState()
     val soundEnabled by viewModel.soundEnabled.collectAsState()
     val tasks by viewModel.tasks.collectAsState()
+    val currentLanguage by viewModel.language.collectAsState()
+
+    BackHandler { onNavigateBack() }
 
     var hasNotificationPermission by remember {
         mutableStateOf(
@@ -54,13 +65,15 @@ fun SettingsScreen(
         hasNotificationPermission = isGranted
     }
 
+    var languageMenuExpanded by remember { mutableStateOf(false) }
+
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Configuración") },
+                title = { Text(stringResource(R.string.settings_title)) },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Volver")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back_content_desc))
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -77,6 +90,7 @@ fun SettingsScreen(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
+            // --- Idioma ---
             item {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
@@ -88,7 +102,87 @@ fun SettingsScreen(
                             .padding(16.dp)
                     ) {
                         Text(
-                            text = "🔔 Notificaciones",
+                            text = stringResource(R.string.language_section),
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = stringResource(R.string.language_desc),
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Spacer(modifier = Modifier.height(12.dp))
+
+                        val selectedLang = LocaleHelper.SUPPORTED_LANGUAGES
+                            .firstOrNull { it.code == currentLanguage }
+                            ?: LocaleHelper.SUPPORTED_LANGUAGES.first()
+
+                        Box {
+                            OutlinedButton(
+                                onClick = { languageMenuExpanded = true },
+                                modifier = Modifier.fillMaxWidth()
+                            ) {
+                                Text(
+                                    text = "${selectedLang.flag}  ${selectedLang.nativeName}",
+                                    modifier = Modifier.weight(1f)
+                                )
+                                Icon(Icons.Default.ArrowDropDown, contentDescription = null)
+                            }
+                            DropdownMenu(
+                                expanded = languageMenuExpanded,
+                                onDismissRequest = { languageMenuExpanded = false }
+                            ) {
+                                LocaleHelper.SUPPORTED_LANGUAGES.forEach { lang ->
+                                    DropdownMenuItem(
+                                        text = {
+                                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                                Text(text = lang.flag, style = MaterialTheme.typography.bodyLarge)
+                                                Spacer(modifier = Modifier.width(8.dp))
+                                                Text(text = lang.nativeName)
+                                                if (lang.code == currentLanguage) {
+                                                    Spacer(modifier = Modifier.width(8.dp))
+                                                    Icon(
+                                                        Icons.Default.Check,
+                                                        contentDescription = null,
+                                                        modifier = Modifier.size(16.dp),
+                                                        tint = MaterialTheme.colorScheme.primary
+                                                    )
+                                                }
+                                            }
+                                        },
+                                        onClick = {
+                                            languageMenuExpanded = false
+                                            if (lang.code != currentLanguage) {
+                                                scope.launch {
+                                                    viewModel.setLanguage(lang.code)
+                                                    // Recrear la Activity para aplicar el nuevo locale
+                                                    (context as? Activity)?.recreate()
+                                                }
+                                            }
+                                        }
+                                    )
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            // --- Notificaciones ---
+            item {
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
+                    ) {
+                        Text(
+                            text = stringResource(R.string.notifications_section),
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.primary
@@ -102,12 +196,12 @@ fun SettingsScreen(
                         ) {
                             Column(modifier = Modifier.weight(1f)) {
                                 Text(
-                                    text = "Recordatorios diarios",
+                                    text = stringResource(R.string.daily_reminders_setting),
                                     style = MaterialTheme.typography.bodyLarge,
                                     fontWeight = FontWeight.Medium
                                 )
                                 Text(
-                                    text = "Recibe notificaciones para motivarte",
+                                    text = stringResource(R.string.daily_reminders_desc),
                                     style = MaterialTheme.typography.bodySmall,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
@@ -135,12 +229,12 @@ fun SettingsScreen(
                         ) {
                             Column(modifier = Modifier.weight(1f)) {
                                 Text(
-                                    text = "Sonido",
+                                    text = stringResource(R.string.sound_setting),
                                     style = MaterialTheme.typography.bodyLarge,
                                     fontWeight = FontWeight.Medium
                                 )
                                 Text(
-                                    text = "Reproducir sonido con las notificaciones",
+                                    text = stringResource(R.string.sound_desc),
                                     style = MaterialTheme.typography.bodySmall,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
@@ -154,6 +248,7 @@ fun SettingsScreen(
                 }
             }
 
+            // --- Prueba ---
             item {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
@@ -165,14 +260,14 @@ fun SettingsScreen(
                             .padding(16.dp)
                     ) {
                         Text(
-                            text = "🧪 Prueba",
+                            text = stringResource(R.string.test_section),
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.primary
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
-                            text = "Envía una notificación de prueba para verificar que todo funciona correctamente",
+                            text = stringResource(R.string.test_desc),
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -194,13 +289,13 @@ fun SettingsScreen(
                         ) {
                             Icon(Icons.Default.Notifications, contentDescription = null)
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text("Enviar notificación de prueba")
+                            Text(stringResource(R.string.send_test_notification))
                         }
 
                         if (tasks.isEmpty()) {
                             Spacer(modifier = Modifier.height(8.dp))
                             Text(
-                                text = "⚠️ Agrega al menos una tarea para probar las notificaciones",
+                                text = stringResource(R.string.add_task_to_test),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.error
                             )
@@ -209,6 +304,7 @@ fun SettingsScreen(
                 }
             }
 
+            // --- Sobre la app ---
             item {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
@@ -223,29 +319,86 @@ fun SettingsScreen(
                             .padding(16.dp)
                     ) {
                         Text(
-                            text = "ℹ️ Sobre la app",
+                            text = stringResource(R.string.about_section),
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.onTertiaryContainer
                         )
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
-                            text = "Motívame v1.0",
+                            text = stringResource(R.string.app_version),
                             style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.onTertiaryContainer
                         )
                         Text(
-                            text = "Tu compañero para mantener la motivación en tus tareas diarias",
+                            text = stringResource(R.string.app_description),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onTertiaryContainer.copy(alpha = 0.7f)
                         )
+
+                        Spacer(modifier = Modifier.height(12.dp))
+                        HorizontalDivider(color = MaterialTheme.colorScheme.onTertiaryContainer.copy(alpha = 0.2f))
+                        Spacer(modifier = Modifier.height(12.dp))
+
+                        // Desarrollado por
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Icon(
+                                imageVector = Icons.Default.Person,
+                                contentDescription = null,
+                                modifier = Modifier.size(16.dp),
+                                tint = MaterialTheme.colorScheme.onTertiaryContainer.copy(alpha = 0.8f)
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(
+                                text = stringResource(R.string.developed_by) + " ",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onTertiaryContainer.copy(alpha = 0.8f)
+                            )
+                            Text(
+                                text = stringResource(R.string.developer_url),
+                                style = MaterialTheme.typography.bodySmall,
+                                fontWeight = FontWeight.SemiBold,
+                                color = MaterialTheme.colorScheme.onTertiaryContainer,
+                                textDecoration = TextDecoration.Underline,
+                                modifier = Modifier.clickable {
+                                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://manalejandro.com"))
+                                    context.startActivity(intent)
+                                }
+                            )
+                        }
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        // Repositorio GitHub
+                        val githubUrl = stringResource(R.string.github_url)
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Icon(
+                                imageVector = Icons.Default.Code,
+                                contentDescription = null,
+                                modifier = Modifier.size(16.dp),
+                                tint = MaterialTheme.colorScheme.onTertiaryContainer.copy(alpha = 0.8f)
+                            )
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text(
+                                text = stringResource(R.string.github_label) + ": ",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onTertiaryContainer.copy(alpha = 0.8f)
+                            )
+                            Text(
+                                text = stringResource(R.string.github_url),
+                                style = MaterialTheme.typography.bodySmall,
+                                fontWeight = FontWeight.SemiBold,
+                                color = MaterialTheme.colorScheme.onTertiaryContainer,
+                                textDecoration = TextDecoration.Underline,
+                                modifier = Modifier.clickable {
+                                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(githubUrl))
+                                    context.startActivity(intent)
+                                }
+                            )
+                        }
                     }
                 }
             }
         }
     }
 }
-
-
-
-

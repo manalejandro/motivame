@@ -1,207 +1,208 @@
-# Motívame - Tu Compañero de Motivación Diaria
+# Motívame · Tu Compañero de Motivación Diaria
 
-## 📱 Descripción
+<p align="center">
+  <img src="app/src/main/ic_launcher-playstore.png" width="120" alt="Motívame icon"/>
+</p>
 
-**Motívame** es una aplicación Android moderna diseñada para ayudarte a mantener la motivación en tus tareas pendientes. La app te permite configurar recordatorios diarios personalizados con tus metas específicas, ayudándote a visualizar el "por qué" detrás de cada tarea.
+<p align="center">
+  <a href="https://github.com/manalejandro/motivame/releases"><img src="https://img.shields.io/github/v/release/manalejandro/motivame?color=6366F1&label=versión" alt="Release"/></a>
+  <img src="https://img.shields.io/badge/Android-7.0%2B-brightgreen?logo=android" alt="Android 7+"/>
+  <img src="https://img.shields.io/badge/Kotlin-2.0.21-blue?logo=kotlin" alt="Kotlin"/>
+  <img src="https://img.shields.io/badge/Jetpack%20Compose-2024.09-orange" alt="Compose"/>
+  <img src="https://img.shields.io/badge/licencia-MIT-lightgrey" alt="MIT"/>
+</p>
 
-## ✨ Características Principales
+> **Motívame** es una app Android de código abierto que te ayuda a mantener la motivación en tus hábitos y tareas pendientes. Define tus metas, elige con qué frecuencia quieres que te recuerde y deja que la app haga el resto.
 
-- **📝 Gestión de Tareas**: Crea, edita y elimina tareas pendientes fácilmente
-- **🎯 Definición de Metas**: Asocia múltiples objetivos a cada tarea para recordar por qué es importante
-- **🔔 Notificaciones Diarias**: Recibe recordatorios automáticos todos los días a las 9:00 AM
-- **🔊 Alertas Personalizables**: Configura sonido y vibración según tus preferencias
-- **⏯️ Control de Tareas**: Activa o pausa tareas según tu conveniencia
-- **🎨 Diseño Moderno**: Interfaz Material Design 3 con colores vibrantes y motivadores
-- **📊 Tareas Predeterminadas**: Comienza con ejemplos inspiradores o crea las tuyas propias
+---
 
-## 🚀 Funcionalidades Técnicas
+## 📥 Descarga
 
-### Arquitectura
-- **MVVM (Model-View-ViewModel)**: Separación clara de responsabilidades
-- **Jetpack Compose**: UI moderna y declarativa
-- **WorkManager**: Tareas programadas en segundo plano confiables
-- **DataStore**: Persistencia de datos ligera y eficiente
-- **Kotlin Coroutines**: Programación asíncrona fluida
+👉 [github.com/manalejandro/motivame](https://github.com/manalejandro/motivame)
 
-### Componentes Principales
+---
 
-#### 1. Pantalla Principal
-- Lista de tareas activas y pausadas
-- Tarjetas visuales con gradientes
-- Indicadores de estado (activo/pausado)
-- Navegación rápida a configuración y agregar tareas
+## ✨ Características
 
-#### 2. Agregar Tareas
-- Campo de título de tarea
-- Agregar múltiples metas personalizadas
-- Validación de campos
-- Interfaz intuitiva con iconos descriptivos
+| Función | Descripción |
+|---|---|
+| 📝 **Gestión de tareas** | Crea, edita (pulsación larga) y elimina tareas |
+| 🎯 **Metas por tarea** | Asocia múltiples objetivos a cada tarea |
+| ⏯️ **Pausa / Reanudar** | Desactiva temporalmente una tarea sin borrarla |
+| 🔔 **Avisos personalizables** | Elige cuántos avisos al día (1–10) y cada cuántos días se repite el ciclo |
+| 🎲 **Horarios aleatorios** | Cada aviso se programa a una hora distinta dentro de la franja 9:00–21:00 |
+| 🔊 **Sonido configurable** | Activa o desactiva el sonido de las notificaciones |
+| 🌐 **Multiidioma** | 8 idiomas: Español · English · 中文 · Français · Deutsch · Português · 日本語 · 한국어 |
+| 🎨 **Material Design 3** | Interfaz moderna con gradientes, colores vibrantes y soporte edge-to-edge |
 
-#### 3. Configuración
-- Activar/desactivar notificaciones
-- Control de sonido
-- Probar notificaciones en tiempo real
-- Solicitud de permisos en Android 13+
+---
 
-### Sistema de Notificaciones
+## 📱 Capturas de pantalla
 
-La aplicación utiliza un sistema de notificaciones inteligente:
+| Principal | Añadir tarea | Configuración |
+|:---:|:---:|:---:|
+| *(lista de tareas con resumen de avisos)* | *(formulario con metas y frecuencia)* | *(idioma, notificaciones, sonido)* |
 
-- **Canal de Alta Prioridad**: Garantiza que las notificaciones sean visibles
-- **Vibración Personalizada**: Patrón distintivo para llamar la atención
-- **Mensajes Motivacionales**: Cada notificación muestra una meta aleatoria de la tarea
-- **Sonido Configurable**: Opción de activar/desactivar sonido de notificación
+---
 
-### WorkManager - Recordatorios Diarios
+## 🚀 Cómo funciona
 
-- Ejecuta tareas diarias a las 9:00 AM
-- Persiste incluso después de reiniciar el dispositivo
-- Optimizado para el consumo de batería
-- No requiere conexión a Internet
+1. **Crea una tarea** — ponle título y añade tus metas (el «por qué»).
+2. **Configura la frecuencia** — número de avisos diarios y cada cuántos días se repite el ciclo.
+3. **Recibe recordatorios** — la app programa los avisos a horas aleatorias distintas dentro de 9:00–21:00, distribuidos en días diferentes del ciclo para que no todos lleguen el mismo día.
+4. **Pausa o edita** — mantén pulsada una tarea para editarla o usa el botón ⏸ para pausarla sin perder su configuración.
 
-## 📦 Dependencias
+---
 
-```kotlin
-// Core Android
-androidx.core:core-ktx:1.10.1
-androidx.lifecycle:lifecycle-runtime-ktx:2.6.1
-androidx.activity:activity-compose:1.8.0
+## 🏗️ Arquitectura y tecnología
 
-// Compose
-androidx.compose:compose-bom:2024.09.00
-androidx.compose.material3:material3
-androidx.compose.material:material-icons-extended:1.5.4
-
-// Architecture Components
-androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1
-androidx.work:work-runtime-ktx:2.9.0
-androidx.datastore:datastore-preferences:1.0.0
+```
+MVVM · Jetpack Compose · WorkManager · DataStore · Kotlin Coroutines
 ```
 
-## 🔧 Requisitos
-
-- **Android SDK 24+** (Android 7.0 Nougat o superior)
-- **Target SDK 36**
-- **Kotlin 2.0.21**
-- **Gradle 9.0.1**
-
-## 🎨 Diseño
-
-### Paleta de Colores
-
-- **Primary**: Indigo vibrante (#6366F1)
-- **Secondary**: Rosa motivador (#EC4899)
-- **Tertiary**: Púrpura (#8B5CF6)
-- **Success**: Verde (#10B981)
-- **Error**: Rojo (#EF4444)
-
-### Tipografía
-- Fuentes Material Design 3
-- Énfasis en títulos grandes y legibles
-- Texto secundario con contraste óptimo
-
-## 📱 Permisos
-
-La aplicación solicita los siguientes permisos:
-
-- `POST_NOTIFICATIONS` (Android 13+): Para mostrar recordatorios
-- `VIBRATE`: Para alertas con vibración
-- `RECEIVE_BOOT_COMPLETED`: Para mantener recordatorios después de reiniciar
-
-## 🔄 Flujo de la Aplicación
-
-1. **Inicio**: Pantalla principal con tareas predeterminadas
-2. **Agregar Tarea**: El usuario crea una nueva tarea con sus metas
-3. **Configuración**: Personaliza notificaciones y sonido
-4. **Recordatorios Automáticos**: WorkManager envía notificaciones diarias
-5. **Interacción**: Usuario puede pausar, reanudar o eliminar tareas
-
-## 🏗️ Estructura del Proyecto
+### Estructura del proyecto
 
 ```
 app/src/main/java/com/manalejandro/motivame/
 ├── data/
-│   ├── Task.kt                  # Modelo de datos
-│   └── TaskRepository.kt        # Repositorio de persistencia
+│   ├── Task.kt                   # Modelo de datos
+│   └── TaskRepository.kt         # Persistencia con DataStore
 ├── notifications/
-│   └── NotificationHelper.kt    # Gestión de notificaciones
+│   └── NotificationHelper.kt     # Envío de notificaciones (Ringtone independiente del canal)
 ├── ui/
 │   ├── screens/
-│   │   ├── MainScreen.kt        # Pantalla principal
-│   │   ├── AddTaskScreen.kt     # Pantalla agregar tarea
-│   │   └── SettingsScreen.kt    # Pantalla configuración
+│   │   ├── MainScreen.kt         # Lista de tareas
+│   │   ├── AddTaskScreen.kt      # Crear / editar tarea
+│   │   └── SettingsScreen.kt     # Configuración (idioma, notificaciones, sonido)
 │   ├── theme/
-│   │   ├── Color.kt             # Definición de colores
-│   │   ├── Theme.kt             # Tema de la aplicación
-│   │   └── Type.kt              # Tipografía
+│   │   ├── Color.kt
+│   │   ├── Theme.kt
+│   │   └── Type.kt
 │   └── viewmodel/
-│       └── TaskViewModel.kt     # ViewModel principal
+│       └── TaskViewModel.kt      # Estado y lógica de negocio
+├── util/
+│   └── LocaleHelper.kt           # Cambio de idioma en tiempo de ejecución
 ├── worker/
-│   └── DailyReminderWorker.kt   # Worker para recordatorios
-└── MainActivity.kt              # Actividad principal
+│   └── DailyReminderWorker.kt    # WorkManager: ejecuta recordatorios programados
+├── MotivameApplication.kt        # Application: inicializa el canal de notificación
+└── MainActivity.kt               # Actividad principal + navegación Compose
 ```
-
-## 🚀 Compilación
-
-```bash
-# Compilar versión de depuración
-./gradlew assembleDebug
-
-# Compilar versión de lanzamiento
-./gradlew assembleRelease
-
-# Ejecutar tests
-./gradlew test
-
-# Compilar e instalar
-./gradlew installDebug
-```
-
-## 💡 Casos de Uso
-
-1. **Estudiante**: Recordatorios para estudiar materias específicas con metas académicas
-2. **Fitness**: Mantener rutina de ejercicio con objetivos de salud
-3. **Desarrollo Personal**: Hábitos diarios como lectura, meditación, etc.
-4. **Productividad**: Tareas profesionales con objetivos de carrera
-
-## 📝 Tareas Predeterminadas
-
-La app incluye 3 tareas de ejemplo:
-
-1. **Hacer ejercicio**
-   - Mejorar salud cardiovascular
-   - Sentirse más energético
-   - Alcanzar peso ideal
-
-2. **Estudiar inglés**
-   - Mejores oportunidades laborales
-   - Viajar sin limitaciones
-   - Expandir conocimiento
-
-3. **Leer 30 minutos**
-   - Desarrollar hábito de lectura
-   - Aprender cosas nuevas
-   - Reducir tiempo en redes sociales
-
-## 🎯 Roadmap Futuro
-
-- [ ] Estadísticas de cumplimiento
-- [ ] Múltiples recordatorios por día
-- [ ] Widgets de pantalla de inicio
-- [ ] Compartir progreso
-- [ ] Temas personalizables
-- [ ] Backup en la nube
-- [ ] Recordatorios inteligentes basados en ubicación
-
-## 👨‍💻 Autor
-
-Desarrollado con ❤️ para ayudar a las personas a mantener su motivación
-
-## 📄 Licencia
-
-Este proyecto es de código abierto y está disponible bajo la licencia MIT.
 
 ---
 
-**¡Mantente motivado y alcanza tus metas! 🚀**
+## 🌐 Idiomas soportados
 
+| Código | Idioma |
+|---|---|
+| `es` | 🇪🇸 Español *(predeterminado)* |
+| `en` | 🇬🇧 English |
+| `zh` | 🇨🇳 中文 |
+| `fr` | 🇫🇷 Français |
+| `de` | 🇩🇪 Deutsch |
+| `pt` | 🇵🇹 Português |
+| `ja` | 🇯🇵 日本語 |
+| `ko` | 🇰🇷 한국어 |
+
+El idioma se selecciona desde **Configuración → Idioma** y se aplica instantáneamente sin necesidad de reiniciar el dispositivo.
+
+---
+
+## 🔔 Sistema de notificaciones
+
+- **Franja horaria**: 9:00–21:00
+- **Horas aleatorias únicas**: cada aviso del ciclo tiene una hora distinta a las demás
+- **Distribución en días**: los avisos se reparten entre los días del ciclo para no coincidir todos el mismo día
+- **Sonido independiente del canal**: el sonido se reproduce con `RingtoneManager` directamente, sin depender del estado interno del canal de Android — garantiza comportamiento consistente en todos los dispositivos y versiones
+- **Canal único con `setSilent(true)`**: la notificación visual se envía siempre silenciosa a nivel de canal; el sonido se controla únicamente desde la preferencia del usuario
+
+---
+
+## 📦 Dependencias principales
+
+| Librería | Versión |
+|---|---|
+| Kotlin | 2.0.21 |
+| Jetpack Compose BOM | 2024.09.00 |
+| Activity Compose | 1.8.0 |
+| Lifecycle / ViewModel | 2.6.1 |
+| WorkManager | 2.9.0 |
+| DataStore Preferences | 1.0.0 |
+| Material Icons Extended | 1.5.4 |
+| Core KTX | 1.10.1 |
+
+---
+
+## 🔧 Requisitos
+
+- **Android 7.0+** (API 24)
+- **Target SDK**: 36
+- **Gradle**: 9.0.1
+
+---
+
+## 🔐 Permisos
+
+| Permiso | Motivo |
+|---|---|
+| `POST_NOTIFICATIONS` *(Android 13+)* | Mostrar recordatorios |
+| `VIBRATE` | Vibración en las notificaciones |
+| `RECEIVE_BOOT_COMPLETED` | Reprogramar avisos tras reinicio del dispositivo |
+
+---
+
+## 🛠️ Compilación
+
+```bash
+# Debug
+./gradlew assembleDebug
+
+# Release
+./gradlew assembleRelease
+
+# Instalar en dispositivo conectado
+./gradlew installDebug
+
+# Tests unitarios
+./gradlew test
+```
+
+---
+
+## 💡 Casos de uso
+
+- **Estudiante** — Recordatorios de estudio con metas académicas concretas
+- **Fitness** — Mantener rutina de ejercicio con objetivos de salud
+- **Desarrollo personal** — Lectura, meditación, idiomas…
+- **Productividad profesional** — Tareas con objetivos de carrera
+
+---
+
+## 🗺️ Roadmap
+
+- [x] Gestión de tareas (crear, editar, eliminar, pausar)
+- [x] Múltiples avisos por día con horas aleatorias
+- [x] Ciclo de días configurable
+- [x] Multiidioma (8 idiomas)
+- [x] Sonido configurable independiente del canal Android
+- [ ] Estadísticas de cumplimiento
+- [ ] Widget de pantalla de inicio
+- [ ] Backup en la nube
+- [ ] Temas personalizables (claro / oscuro / AMOLED)
+- [ ] Recordatorios con imagen motivacional
+
+---
+
+## 👨‍💻 Autor
+
+Desarrollado por **[manalejandro.com](https://manalejandro.com)**
+
+---
+
+## 📄 Licencia
+
+Este proyecto está disponible bajo la licencia **MIT**.  
+Puedes usarlo, modificarlo y distribuirlo libremente citando al autor.
+
+---
+
+<p align="center"><strong>¡Mantente motivado y alcanza tus metas! 🚀</strong></p>

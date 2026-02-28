@@ -23,8 +23,12 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
     private val _soundEnabled = MutableStateFlow(true)
     val soundEnabled: StateFlow<Boolean> = _soundEnabled.asStateFlow()
 
-    /** Callback que se invoca tras cualquier cambio en las tareas para reprogramar avisos */
-    var onRescheduleReminders: (() -> Unit)? = null
+    private val _language = MutableStateFlow("es")
+    val language: StateFlow<String> = _language.asStateFlow()
+
+    /** Callback que se invoca tras cualquier cambio en las tareas para reprogramar avisos.
+     *  Recibe el valor actual de notificationEnabled para evitar condiciones de carrera con DataStore. */
+    var onRescheduleReminders: ((notificationsEnabled: Boolean) -> Unit)? = null
 
     init {
         loadTasks()
@@ -50,26 +54,31 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
                 _soundEnabled.value = enabled
             }
         }
+        viewModelScope.launch {
+            repository.language.collect { lang ->
+                _language.value = lang
+            }
+        }
     }
 
     fun addTask(task: Task) {
         viewModelScope.launch {
             repository.addTask(task)
-            onRescheduleReminders?.invoke()
+            onRescheduleReminders?.invoke(_notificationEnabled.value)
         }
     }
 
     fun updateTask(task: Task) {
         viewModelScope.launch {
             repository.updateTask(task)
-            onRescheduleReminders?.invoke()
+            onRescheduleReminders?.invoke(_notificationEnabled.value)
         }
     }
 
     fun deleteTask(taskId: String) {
         viewModelScope.launch {
             repository.deleteTask(taskId)
-            onRescheduleReminders?.invoke()
+            onRescheduleReminders?.invoke(_notificationEnabled.value)
         }
     }
 
@@ -77,7 +86,8 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             repository.setNotificationEnabled(enabled)
             _notificationEnabled.value = enabled
-            onRescheduleReminders?.invoke()
+            // Pasamos `enabled` directamente para no releer DataStore
+            onRescheduleReminders?.invoke(enabled)
         }
     }
 
@@ -87,5 +97,9 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
             _soundEnabled.value = enabled
         }
     }
-}
 
+    suspend fun setLanguage(languageCode: String) {
+        repository.setLanguage(languageCode)
+        _language.value = languageCode
+    }
+}

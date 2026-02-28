@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">激励我</string>
+    <string name="notification_channel_name">任务提醒</string>
+    <string name="notification_channel_description">提醒您完成待办任务的通知</string>
+
+    <!-- MainScreen -->
+    <string name="settings_content_desc">设置</string>
+    <string name="add_task_content_desc">添加任务</string>
+    <string name="empty_state_title">开始你的旅程！</string>
+    <string name="empty_state_subtitle">添加你的第一个任务和目标，保持动力</string>
+    <string name="goals_label">🎯 目标：</string>
+    <string name="task_paused">⏸️ 已暂停</string>
+    <string name="toggle_active_desc">切换任务状态</string>
+    <string name="delete_task_desc">删除</string>
+    <string name="delete_task_title">删除任务</string>
+    <string name="delete_task_confirm">确定要删除 \'%1$s\' 吗？</string>
+    <string name="delete">删除</string>
+    <string name="cancel">取消</string>
+
+    <!-- AddTaskScreen -->
+    <string name="new_task_title">新任务</string>
+    <string name="back_content_desc">返回</string>
+    <string name="what_to_remember">📝 你需要记住什么？</string>
+    <string name="task_title_label">任务标题</string>
+    <string name="task_title_placeholder">例：锻炼身体</string>
+    <string name="what_to_achieve">🎯 你希望达到什么目标？</string>
+    <string name="new_goal_label">新目标</string>
+    <string name="new_goal_placeholder">例：改善健康</string>
+    <string name="add_goal_desc">添加目标</string>
+    <string name="goals_added">已添加目标：</string>
+    <string name="delete_goal_desc">删除目标</string>
+    <string name="daily_reminders_title">🔔 每日提醒</string>
+    <string name="daily_reminders_subtitle">9:00 至 21:00 之间的提醒次数</string>
+    <string name="reminder_singular">次提醒</string>
+    <string name="reminder_plural">次提醒</string>
+    <string name="decrease_desc">减少</string>
+    <string name="increase_desc">增加</string>
+    <string name="interval_hint">⏱️ 大约每 %1$s 一次提醒</string>
+    <string name="repeat_days_title">📅 每隔几天</string>
+    <string name="repeat_days_subtitle">每个提醒周期之间的天数间隔</string>
+    <string name="day_singular">天</string>
+    <string name="day_plural">天</string>
+    <string name="decrease_days_desc">减少天数</string>
+    <string name="increase_days_desc">增加天数</string>
+    <string name="repeat_every_day">🔁 每天提醒</string>
+    <string name="repeat_every_n_days">🔁 每 %1$d 天提醒，分散安排避免重叠</string>
+    <string name="save_task">保存任务</string>
+    <string name="edit_task_title">编辑任务</string>
+    <string name="update_task">保存更改</string>
+    <string name="pause_task_desc">暂停任务</string>
+    <string name="resume_task_desc">恢复任务</string>
+    <string name="long_press_hint">长按以编辑</string>
+    <string name="task_summary_reminders">每天 %1$d 次提醒 · 每 %2$d 天</string>
+    <string name="task_summary_reminders_daily">每天 %1$d 次提醒 · 每天</string>
+
+    <!-- SettingsScreen -->
+    <string name="settings_title">设置</string>
+    <string name="notifications_section">🔔 通知</string>
+    <string name="daily_reminders_setting">每日提醒</string>
+    <string name="daily_reminders_desc">接收通知以激励自己</string>
+    <string name="sound_setting">声音</string>
+    <string name="sound_desc">通知时播放声音</string>
+    <string name="test_section">🧪 测试</string>
+    <string name="test_desc">发送测试通知以验证一切正常运行</string>
+    <string name="send_test_notification">发送测试通知</string>
+    <string name="add_task_to_test">⚠️ 请至少添加一个任务以测试通知</string>
+    <string name="about_section">ℹ️ 关于应用</string>
+    <string name="app_version">激励我 v1.0</string>
+    <string name="app_description">帮助你在日常任务中保持动力的好伴侣</string>
+    <string name="developed_by">开发者</string>
+    <string name="developer_url">manalejandro.com</string>
+    <string name="github_label">GitHub 仓库</string>
+    <string name="github_url">https://github.com/manalejandro/motivame</string>
+
+    <!-- Language selector -->
+    <string name="language_section">🌐 语言</string>
+    <string name="language_desc">选择应用程序语言</string>
+    <string name="language_restart_hint">应用将重启以应用语言更改</string>
+
+    <!-- Notifications -->
+    <string name="notification_default_message">记得完成这个任务！</string>
+    <string name="notification_big_text">📝 任务：%1$s\n\n🎯 提醒：%2$s</string>
+</resources>
+
+

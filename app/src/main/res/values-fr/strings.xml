@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Motivez-moi</string>
+    <string name="notification_channel_name">Rappels de tâches</string>
+    <string name="notification_channel_description">Notifications pour vous rappeler vos tâches en attente</string>
+
+    <string name="settings_content_desc">Paramètres</string>
+    <string name="add_task_content_desc">Ajouter une tâche</string>
+    <string name="empty_state_title">Commencez votre voyage !</string>
+    <string name="empty_state_subtitle">Ajoutez votre première tâche et vos objectifs pour rester motivé</string>
+    <string name="goals_label">🎯 Objectifs :</string>
+    <string name="task_paused">⏸️ En pause</string>
+    <string name="toggle_active_desc">Activer/mettre en pause la tâche</string>
+    <string name="delete_task_desc">Supprimer</string>
+    <string name="delete_task_title">Supprimer la tâche</string>
+    <string name="delete_task_confirm">Voulez-vous vraiment supprimer \'%1$s\' ?</string>
+    <string name="delete">Supprimer</string>
+    <string name="cancel">Annuler</string>
+
+    <string name="new_task_title">Nouvelle tâche</string>
+    <string name="back_content_desc">Retour</string>
+    <string name="what_to_remember">📝 Que devez-vous retenir ?</string>
+    <string name="task_title_label">Titre de la tâche</string>
+    <string name="task_title_placeholder">Ex : Faire du sport</string>
+    <string name="what_to_achieve">🎯 Qu\'espérez-vous accomplir ?</string>
+    <string name="new_goal_label">Nouvel objectif</string>
+    <string name="new_goal_placeholder">Ex : Améliorer ma santé</string>
+    <string name="add_goal_desc">Ajouter un objectif</string>
+    <string name="goals_added">Objectifs ajoutés :</string>
+    <string name="delete_goal_desc">Supprimer l\'objectif</string>
+    <string name="daily_reminders_title">🔔 Rappels quotidiens</string>
+    <string name="daily_reminders_subtitle">Nombre de rappels entre 9h00 et 21h00</string>
+    <string name="reminder_singular">rappel</string>
+    <string name="reminder_plural">rappels</string>
+    <string name="decrease_desc">Diminuer</string>
+    <string name="increase_desc">Augmenter</string>
+    <string name="interval_hint">⏱️ Un rappel toutes les %1$s environ.</string>
+    <string name="repeat_days_title">📅 Tous les combien de jours</string>
+    <string name="repeat_days_subtitle">Intervalle de jours entre chaque cycle de rappels</string>
+    <string name="day_singular">jour</string>
+    <string name="day_plural">jours</string>
+    <string name="decrease_days_desc">Réduire les jours</string>
+    <string name="increase_days_desc">Augmenter les jours</string>
+    <string name="repeat_every_day">🔁 Rappels tous les jours</string>
+    <string name="repeat_every_n_days">🔁 Rappels tous les %1$d jours, répartis pour ne pas se chevaucher</string>
+    <string name="save_task">Enregistrer la tâche</string>
+    <string name="edit_task_title">Modifier la tâche</string>
+    <string name="update_task">Enregistrer les modifications</string>
+    <string name="pause_task_desc">Mettre en pause</string>
+    <string name="resume_task_desc">Reprendre</string>
+    <string name="long_press_hint">Appui long pour modifier</string>
+    <string name="task_summary_reminders">%1$d rappel/jour · tous les %2$d jours</string>
+    <string name="task_summary_reminders_daily">%1$d rappel/jour · chaque jour</string>
+
+    <string name="settings_title">Paramètres</string>
+    <string name="notifications_section">🔔 Notifications</string>
+    <string name="daily_reminders_setting">Rappels quotidiens</string>
+    <string name="daily_reminders_desc">Recevoir des notifications pour vous motiver</string>
+    <string name="sound_setting">Son</string>
+    <string name="sound_desc">Jouer un son avec les notifications</string>
+    <string name="test_section">🧪 Test</string>
+    <string name="test_desc">Envoyer une notification de test pour vérifier que tout fonctionne</string>
+    <string name="send_test_notification">Envoyer une notification de test</string>
+    <string name="add_task_to_test">⚠️ Ajoutez au moins une tâche pour tester les notifications</string>
+    <string name="about_section">ℹ️ À propos</string>
+    <string name="app_version">Motivez-moi v1.0</string>
+    <string name="app_description">Votre compagnon pour rester motivé dans vos tâches quotidiennes</string>
+    <string name="developed_by">Développé par</string>
+    <string name="developer_url">manalejandro.com</string>
+    <string name="github_label">Dépôt GitHub</string>
+    <string name="github_url">https://github.com/manalejandro/motivame</string>
+
+    <string name="language_section">🌐 Langue</string>
+    <string name="language_desc">Sélectionnez la langue de l\'application</string>
+    <string name="language_restart_hint">L\'app redémarrera pour appliquer la langue</string>
+
+    <string name="notification_default_message">N\'oubliez pas de terminer cette tâche !</string>
+    <string name="notification_big_text">📝 Tâche : %1$s\n\n🎯 Rappel : %2$s</string>
+</resources>
+

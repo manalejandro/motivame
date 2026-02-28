@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Motivate Me</string>
+    <string name="notification_channel_name">Task Reminders</string>
+    <string name="notification_channel_description">Notifications to remind you of your pending tasks</string>
+
+    <!-- MainScreen -->
+    <string name="settings_content_desc">Settings</string>
+    <string name="add_task_content_desc">Add task</string>
+    <string name="empty_state_title">Start your journey!</string>
+    <string name="empty_state_subtitle">Add your first task and goals to stay motivated</string>
+    <string name="goals_label">🎯 Goals:</string>
+    <string name="task_paused">⏸️ Paused</string>
+    <string name="toggle_active_desc">Toggle task active</string>
+    <string name="delete_task_desc">Delete</string>
+    <string name="delete_task_title">Delete task</string>
+    <string name="delete_task_confirm">Are you sure you want to delete \'%1$s\'?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- AddTaskScreen -->
+    <string name="new_task_title">New Task</string>
+    <string name="back_content_desc">Back</string>
+    <string name="what_to_remember">📝 What do you need to remember?</string>
+    <string name="task_title_label">Task title</string>
+    <string name="task_title_placeholder">E.g.: Exercise</string>
+    <string name="what_to_achieve">🎯 What do you expect to achieve?</string>
+    <string name="new_goal_label">New goal</string>
+    <string name="new_goal_placeholder">E.g.: Improve my health</string>
+    <string name="add_goal_desc">Add goal</string>
+    <string name="goals_added">Added goals:</string>
+    <string name="delete_goal_desc">Delete goal</string>
+    <string name="daily_reminders_title">🔔 Daily reminders</string>
+    <string name="daily_reminders_subtitle">Number of reminders between 9:00 and 21:00</string>
+    <string name="reminder_singular">reminder</string>
+    <string name="reminder_plural">reminders</string>
+    <string name="decrease_desc">Decrease</string>
+    <string name="increase_desc">Increase</string>
+    <string name="interval_hint">⏱️ One reminder every %1$s approx.</string>
+    <string name="repeat_days_title">📅 Every how many days</string>
+    <string name="repeat_days_subtitle">Interval of days between each reminder cycle</string>
+    <string name="day_singular">day</string>
+    <string name="day_plural">days</string>
+    <string name="decrease_days_desc">Decrease days</string>
+    <string name="increase_days_desc">Increase days</string>
+    <string name="repeat_every_day">🔁 Reminders every day</string>
+    <string name="repeat_every_n_days">🔁 Reminders every %1$d days, spread out to avoid overlapping</string>
+    <string name="save_task">Save Task</string>
+    <string name="edit_task_title">Edit Task</string>
+    <string name="update_task">Save Changes</string>
+    <string name="pause_task_desc">Pause task</string>
+    <string name="resume_task_desc">Resume task</string>
+    <string name="long_press_hint">Long press to edit</string>
+    <string name="task_summary_reminders">%1$d reminder/day · every %2$d days</string>
+    <string name="task_summary_reminders_daily">%1$d reminder/day · every day</string>
+
+    <!-- SettingsScreen -->
+    <string name="settings_title">Settings</string>
+    <string name="notifications_section">🔔 Notifications</string>
+    <string name="daily_reminders_setting">Daily reminders</string>
+    <string name="daily_reminders_desc">Receive notifications to motivate yourself</string>
+    <string name="sound_setting">Sound</string>
+    <string name="sound_desc">Play sound with notifications</string>
+    <string name="test_section">🧪 Test</string>
+    <string name="test_desc">Send a test notification to verify everything works correctly</string>
+    <string name="send_test_notification">Send test notification</string>
+    <string name="add_task_to_test">⚠️ Add at least one task to test notifications</string>
+    <string name="about_section">ℹ️ About the app</string>
+    <string name="app_version">Motivate Me v1.0</string>
+    <string name="app_description">Your companion to stay motivated on your daily tasks</string>
+    <string name="developed_by">Developed by</string>
+    <string name="developer_url">manalejandro.com</string>
+    <string name="github_label">GitHub Repository</string>
+    <string name="github_url">https://github.com/manalejandro/motivame</string>
+
+    <!-- Language selector -->
+    <string name="language_section">🌐 Language</string>
+    <string name="language_desc">Select the application language</string>
+    <string name="language_restart_hint">The app will restart to apply the language</string>
+
+    <!-- Notifications -->
+    <string name="notification_default_message">Remember to complete this task!</string>
+    <string name="notification_big_text">📝 Task: %1$s\n\n🎯 Remember: %2$s</string>
+</resources>
+
+

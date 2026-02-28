@@ -19,6 +19,7 @@ class TaskRepository(private val context: Context) {
         private val TASKS_KEY = stringPreferencesKey("tasks")
         private val NOTIFICATION_ENABLED_KEY = stringPreferencesKey("notification_enabled")
         private val SOUND_ENABLED_KEY = stringPreferencesKey("sound_enabled")
+        private val LANGUAGE_KEY = stringPreferencesKey("language")
 
         val DEFAULT_TASKS = listOf(
             Task(
@@ -68,6 +69,11 @@ class TaskRepository(private val context: Context) {
             preferences[SOUND_ENABLED_KEY]?.toBoolean() ?: true
         }
 
+    val language: Flow<String> = context.dataStore.data
+        .map { preferences ->
+            preferences[LANGUAGE_KEY] ?: "es"
+        }
+
     suspend fun saveTasks(tasks: List<Task>) {
         context.dataStore.edit { preferences ->
             preferences[TASKS_KEY] = tasksToJson(tasks)
@@ -107,6 +113,12 @@ class TaskRepository(private val context: Context) {
     suspend fun setSoundEnabled(enabled: Boolean) {
         context.dataStore.edit { preferences ->
             preferences[SOUND_ENABLED_KEY] = enabled.toString()
+        }
+    }
+
+    suspend fun setLanguage(languageCode: String) {
+        context.dataStore.edit { preferences ->
+            preferences[LANGUAGE_KEY] = languageCode
         }
     }
 

@@ -1,5 +1,6 @@
 package com.manalejandro.motivame.ui.screens
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -11,8 +12,10 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import com.manalejandro.motivame.R
 import com.manalejandro.motivame.data.Task
 import com.manalejandro.motivame.ui.viewmodel.TaskViewModel
 
@@ -20,21 +23,30 @@ import com.manalejandro.motivame.ui.viewmodel.TaskViewModel
 @Composable
 fun AddTaskScreen(
     viewModel: TaskViewModel,
-    onNavigateBack: () -> Unit
+    onNavigateBack: () -> Unit,
+    taskToEdit: Task? = null
 ) {
-    var taskTitle by remember { mutableStateOf("") }
+    val isEditing = taskToEdit != null
+    var taskTitle by remember { mutableStateOf(taskToEdit?.title ?: "") }
     var currentGoal by remember { mutableStateOf("") }
-    var goals by remember { mutableStateOf(listOf<String>()) }
-    var dailyReminders by remember { mutableStateOf(3) }
-    var repeatEveryDays by remember { mutableStateOf(3) }
+    var goals by remember { mutableStateOf(taskToEdit?.goals ?: listOf()) }
+    var dailyReminders by remember { mutableStateOf(taskToEdit?.dailyReminders ?: 3) }
+    var repeatEveryDays by remember { mutableStateOf(taskToEdit?.repeatEveryDays ?: 3) }
+
+    BackHandler { onNavigateBack() }
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Nueva Tarea") },
+                title = {
+                    Text(
+                        if (isEditing) stringResource(R.string.edit_task_title)
+                        else stringResource(R.string.new_task_title)
+                    )
+                },
                 navigationIcon = {
                     IconButton(onClick = onNavigateBack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Volver")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.back_content_desc))
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -62,7 +74,7 @@ fun AddTaskScreen(
                             .padding(16.dp)
                     ) {
                         Text(
-                            text = "📝 ¿Qué debes recordar?",
+                            text = stringResource(R.string.what_to_remember),
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.primary
@@ -71,8 +83,8 @@ fun AddTaskScreen(
                         OutlinedTextField(
                             value = taskTitle,
                             onValueChange = { taskTitle = it },
-                            label = { Text("Título de la tarea") },
-                            placeholder = { Text("Ej: Hacer ejercicio") },
+                            label = { Text(stringResource(R.string.task_title_label)) },
+                            placeholder = { Text(stringResource(R.string.task_title_placeholder)) },
                             modifier = Modifier.fillMaxWidth(),
                             singleLine = true,
                             leadingIcon = {
@@ -94,7 +106,7 @@ fun AddTaskScreen(
                             .padding(16.dp)
                     ) {
                         Text(
-                            text = "🎯 ¿Qué esperas alcanzar?",
+                            text = stringResource(R.string.what_to_achieve),
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.primary
@@ -104,8 +116,8 @@ fun AddTaskScreen(
                         OutlinedTextField(
                             value = currentGoal,
                             onValueChange = { currentGoal = it },
-                            label = { Text("Nueva meta") },
-                            placeholder = { Text("Ej: Mejorar mi salud") },
+                            label = { Text(stringResource(R.string.new_goal_label)) },
+                            placeholder = { Text(stringResource(R.string.new_goal_placeholder)) },
                             modifier = Modifier.fillMaxWidth(),
                             trailingIcon = {
                                 IconButton(
@@ -117,7 +129,7 @@ fun AddTaskScreen(
                                     },
                                     enabled = currentGoal.isNotBlank()
                                 ) {
-                                    Icon(Icons.Default.Add, contentDescription = "Agregar meta")
+                                    Icon(Icons.Default.Add, contentDescription = stringResource(R.string.add_goal_desc))
                                 }
                             }
                         )
@@ -128,7 +140,7 @@ fun AddTaskScreen(
             if (goals.isNotEmpty()) {
                 item {
                     Text(
-                        text = "Metas agregadas:",
+                        text = stringResource(R.string.goals_added),
                         style = MaterialTheme.typography.titleSmall,
                         fontWeight = FontWeight.SemiBold,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -173,7 +185,7 @@ fun AddTaskScreen(
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.Delete,
-                                    contentDescription = "Eliminar meta",
+                                    contentDescription = stringResource(R.string.delete_goal_desc),
                                     tint = MaterialTheme.colorScheme.error
                                 )
                             }
@@ -193,14 +205,14 @@ fun AddTaskScreen(
                             .padding(16.dp)
                     ) {
                         Text(
-                            text = "🔔 Avisos diarios",
+                            text = stringResource(R.string.daily_reminders_title),
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.primary
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
-                            text = "Número de recordatorios entre las 9:00 y las 21:00",
+                            text = stringResource(R.string.daily_reminders_subtitle),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -217,7 +229,7 @@ fun AddTaskScreen(
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.KeyboardArrowDown,
-                                    contentDescription = "Reducir",
+                                    contentDescription = stringResource(R.string.decrease_desc),
                                     tint = if (dailyReminders > 1) MaterialTheme.colorScheme.primary
                                            else MaterialTheme.colorScheme.onSurfaceVariant
                                 )
@@ -231,7 +243,8 @@ fun AddTaskScreen(
                                     color = MaterialTheme.colorScheme.primary
                                 )
                                 Text(
-                                    text = if (dailyReminders == 1) "aviso" else "avisos",
+                                    text = if (dailyReminders == 1) stringResource(R.string.reminder_singular)
+                                           else stringResource(R.string.reminder_plural),
                                     style = MaterialTheme.typography.bodySmall,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
@@ -243,7 +256,7 @@ fun AddTaskScreen(
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.KeyboardArrowUp,
-                                    contentDescription = "Aumentar",
+                                    contentDescription = stringResource(R.string.increase_desc),
                                     tint = if (dailyReminders < 10) MaterialTheme.colorScheme.primary
                                            else MaterialTheme.colorScheme.onSurfaceVariant
                                 )
@@ -254,7 +267,7 @@ fun AddTaskScreen(
                             Spacer(modifier = Modifier.height(8.dp))
                             val intervalMinutes = 720 / (dailyReminders - 1)
                             Text(
-                                text = "⏱️ Un aviso cada ${formatInterval(intervalMinutes)} aprox.",
+                                text = stringResource(R.string.interval_hint, formatInterval(intervalMinutes)),
                                 style = MaterialTheme.typography.bodySmall,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant
                             )
@@ -274,14 +287,14 @@ fun AddTaskScreen(
                             .padding(16.dp)
                     ) {
                         Text(
-                            text = "📅 Cada cuántos días",
+                            text = stringResource(R.string.repeat_days_title),
                             style = MaterialTheme.typography.titleMedium,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.primary
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
-                            text = "Intervalo de días entre cada ciclo de avisos",
+                            text = stringResource(R.string.repeat_days_subtitle),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -298,7 +311,7 @@ fun AddTaskScreen(
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.KeyboardArrowDown,
-                                    contentDescription = "Reducir días",
+                                    contentDescription = stringResource(R.string.decrease_days_desc),
                                     tint = if (repeatEveryDays > 1) MaterialTheme.colorScheme.primary
                                            else MaterialTheme.colorScheme.onSurfaceVariant
                                 )
@@ -312,7 +325,8 @@ fun AddTaskScreen(
                                     color = MaterialTheme.colorScheme.primary
                                 )
                                 Text(
-                                    text = if (repeatEveryDays == 1) "día" else "días",
+                                    text = if (repeatEveryDays == 1) stringResource(R.string.day_singular)
+                                           else stringResource(R.string.day_plural),
                                     style = MaterialTheme.typography.bodySmall,
                                     color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
@@ -324,7 +338,7 @@ fun AddTaskScreen(
                             ) {
                                 Icon(
                                     imageVector = Icons.Default.KeyboardArrowUp,
-                                    contentDescription = "Aumentar días",
+                                    contentDescription = stringResource(R.string.increase_days_desc),
                                     tint = if (repeatEveryDays < 30) MaterialTheme.colorScheme.primary
                                            else MaterialTheme.colorScheme.onSurfaceVariant
                                 )
@@ -333,8 +347,8 @@ fun AddTaskScreen(
 
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
-                            text = if (repeatEveryDays == 1) "🔁 Avisos todos los días"
-                                   else "🔁 Avisos cada $repeatEveryDays días, repartidos para no coincidir",
+                            text = if (repeatEveryDays == 1) stringResource(R.string.repeat_every_day)
+                                   else stringResource(R.string.repeat_every_n_days, repeatEveryDays),
                             style = MaterialTheme.typography.bodySmall,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
@@ -347,14 +361,26 @@ fun AddTaskScreen(
                 Button(
                     onClick = {
                         if (taskTitle.isNotBlank()) {
-                            val newTask = Task(
-                                title = taskTitle.trim(),
-                                goals = goals,
-                                isActive = true,
-                                dailyReminders = dailyReminders,
-                                repeatEveryDays = repeatEveryDays
-                            )
-                            viewModel.addTask(newTask)
+                            val existing = taskToEdit
+                            if (existing != null) {
+                                viewModel.updateTask(
+                                    existing.copy(
+                                        title = taskTitle.trim(),
+                                        goals = goals,
+                                        dailyReminders = dailyReminders,
+                                        repeatEveryDays = repeatEveryDays
+                                    )
+                                )
+                            } else {
+                                val newTask = Task(
+                                    title = taskTitle.trim(),
+                                    goals = goals,
+                                    isActive = true,
+                                    dailyReminders = dailyReminders,
+                                    repeatEveryDays = repeatEveryDays
+                                )
+                                viewModel.addTask(newTask)
+                            }
                             onNavigateBack()
                         }
                     },
@@ -367,7 +393,8 @@ fun AddTaskScreen(
                     Icon(Icons.Default.Check, contentDescription = null)
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(
-                        text = "Guardar Tarea",
+                        text = if (isEditing) stringResource(R.string.update_task)
+                               else stringResource(R.string.save_task),
                         style = MaterialTheme.typography.titleMedium,
                         fontWeight = FontWeight.Bold
                     )

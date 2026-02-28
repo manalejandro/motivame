@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Motiva-me</string>
+    <string name="notification_channel_name">Lembretes de Tarefas</string>
+    <string name="notification_channel_description">Notificações para lembrá-lo das suas tarefas pendentes</string>
+
+    <string name="settings_content_desc">Configurações</string>
+    <string name="add_task_content_desc">Adicionar tarefa</string>
+    <string name="empty_state_title">Comece sua jornada!</string>
+    <string name="empty_state_subtitle">Adicione sua primeira tarefa e metas para se manter motivado</string>
+    <string name="goals_label">🎯 Metas:</string>
+    <string name="task_paused">⏸️ Pausada</string>
+    <string name="toggle_active_desc">Ativar/pausar tarefa</string>
+    <string name="delete_task_desc">Excluir</string>
+    <string name="delete_task_title">Excluir tarefa</string>
+    <string name="delete_task_confirm">Tem certeza que deseja excluir \'%1$s\'?</string>
+    <string name="delete">Excluir</string>
+    <string name="cancel">Cancelar</string>
+
+    <string name="new_task_title">Nova Tarefa</string>
+    <string name="back_content_desc">Voltar</string>
+    <string name="what_to_remember">📝 O que você precisa lembrar?</string>
+    <string name="task_title_label">Título da tarefa</string>
+    <string name="task_title_placeholder">Ex: Fazer exercício</string>
+    <string name="what_to_achieve">🎯 O que você espera alcançar?</string>
+    <string name="new_goal_label">Nova meta</string>
+    <string name="new_goal_placeholder">Ex: Melhorar minha saúde</string>
+    <string name="add_goal_desc">Adicionar meta</string>
+    <string name="goals_added">Metas adicionadas:</string>
+    <string name="delete_goal_desc">Excluir meta</string>
+    <string name="daily_reminders_title">🔔 Lembretes diários</string>
+    <string name="daily_reminders_subtitle">Número de lembretes entre 9h00 e 21h00</string>
+    <string name="reminder_singular">lembrete</string>
+    <string name="reminder_plural">lembretes</string>
+    <string name="decrease_desc">Diminuir</string>
+    <string name="increase_desc">Aumentar</string>
+    <string name="interval_hint">⏱️ Um lembrete a cada %1$s aprox.</string>
+    <string name="repeat_days_title">📅 De quantos em quantos dias</string>
+    <string name="repeat_days_subtitle">Intervalo de dias entre cada ciclo de lembretes</string>
+    <string name="day_singular">dia</string>
+    <string name="day_plural">dias</string>
+    <string name="decrease_days_desc">Diminuir dias</string>
+    <string name="increase_days_desc">Aumentar dias</string>
+    <string name="repeat_every_day">🔁 Lembretes todos os dias</string>
+    <string name="repeat_every_n_days">🔁 Lembretes a cada %1$d dias, distribuídos para não coincidir</string>
+    <string name="save_task">Salvar Tarefa</string>
+    <string name="edit_task_title">Editar Tarefa</string>
+    <string name="update_task">Salvar Alterações</string>
+    <string name="pause_task_desc">Pausar tarefa</string>
+    <string name="resume_task_desc">Retomar tarefa</string>
+    <string name="long_press_hint">Pressione longo para editar</string>
+    <string name="task_summary_reminders">%1$d lembrete/dia · a cada %2$d dias</string>
+    <string name="task_summary_reminders_daily">%1$d lembrete/dia · todos os dias</string>
+
+    <string name="settings_title">Configurações</string>
+    <string name="notifications_section">🔔 Notificações</string>
+    <string name="daily_reminders_setting">Lembretes diários</string>
+    <string name="daily_reminders_desc">Receba notificações para se motivar</string>
+    <string name="sound_setting">Som</string>
+    <string name="sound_desc">Reproduzir som com as notificações</string>
+    <string name="test_section">🧪 Teste</string>
+    <string name="test_desc">Envie uma notificação de teste para verificar se tudo funciona corretamente</string>
+    <string name="send_test_notification">Enviar notificação de teste</string>
+    <string name="add_task_to_test">⚠️ Adicione pelo menos uma tarefa para testar as notificações</string>
+    <string name="about_section">ℹ️ Sobre o app</string>
+    <string name="app_version">Motiva-me v1.0</string>
+    <string name="app_description">Seu companheiro para manter a motivação nas suas tarefas diárias</string>
+    <string name="developed_by">Desenvolvido por</string>
+    <string name="developer_url">manalejandro.com</string>
+    <string name="github_label">Repositório no GitHub</string>
+    <string name="github_url">https://github.com/manalejandro/motivame</string>
+
+    <string name="language_section">🌐 Idioma</string>
+    <string name="language_desc">Selecione o idioma do aplicativo</string>
+    <string name="language_restart_hint">O app será reiniciado para aplicar o idioma</string>
+
+    <string name="notification_default_message">Lembre-se de completar esta tarefa!</string>
+    <string name="notification_big_text">📝 Tarefa: %1$s\n\n🎯 Lembre-se: %2$s</string>
+</resources>
+
