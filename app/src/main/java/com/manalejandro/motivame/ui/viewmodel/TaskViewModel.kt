@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.manalejandro.motivame.data.Task
 import com.manalejandro.motivame.data.TaskRepository
+import com.manalejandro.motivame.widget.MotivameWidget
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -65,6 +66,7 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             repository.addTask(task)
             onRescheduleReminders?.invoke(_notificationEnabled.value)
+            MotivameWidget.requestUpdate(getApplication())
         }
     }
 
@@ -72,6 +74,7 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             repository.updateTask(task)
             onRescheduleReminders?.invoke(_notificationEnabled.value)
+            MotivameWidget.requestUpdate(getApplication())
         }
     }
 
@@ -79,6 +82,7 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             repository.deleteTask(taskId)
             onRescheduleReminders?.invoke(_notificationEnabled.value)
+            MotivameWidget.requestUpdate(getApplication())
         }
     }
 

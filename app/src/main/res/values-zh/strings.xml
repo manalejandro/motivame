@@ -79,8 +79,11 @@
     <string name="language_restart_hint">应用将重启以应用语言更改</string>
 
     <!-- Notifications -->
-    <string name="notification_default_message">记得完成这个任务！</string>
-    <string name="notification_big_text">📝 任务：%1$s\n\n🎯 提醒：%2$s</string>
+    <!-- Widget -->
+    <string name="widget_description">显示您的活跃任务和激励目标</string>
+    <string name="widget_no_tasks">没有活跃任务。\n打开激励我来添加一个。</string>
+    <string name="widget_tap_to_open">点击打开 →</string>
+    <string name="widget_active">活跃</string>
 </resources>
 
 

@@ -76,5 +76,11 @@
 
     <string name="notification_default_message">N\'oubliez pas de terminer cette tâche !</string>
     <string name="notification_big_text">📝 Tâche : %1$s\n\n🎯 Rappel : %2$s</string>
+
+    <!-- Widget -->
+    <string name="widget_description">Affiche votre tâche active et un objectif motivationnel</string>
+    <string name="widget_no_tasks">Aucune tâche active.\nOuvrez Motivez-moi pour en ajouter une.</string>
+    <string name="widget_tap_to_open">Toucher pour ouvrir →</string>
+    <string name="widget_active">active</string>
 </resources>
 

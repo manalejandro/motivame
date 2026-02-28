@@ -80,4 +80,10 @@
     <!-- Notifications -->
     <string name="notification_default_message">¡Recuerda completar esta tarea!</string>
     <string name="notification_big_text">📝 Tarea: %1$s\n\n🎯 Recuerda: %2$s</string>
+
+    <!-- Widget -->
+    <string name="widget_description">Muestra tu tarea activa y una meta motivacional</string>
+    <string name="widget_no_tasks">Sin tareas activas.\nAbre Motívame para añadir una.</string>
+    <string name="widget_tap_to_open">Toca para abrir →</string>
+    <string name="widget_active">activa</string>
 </resources>

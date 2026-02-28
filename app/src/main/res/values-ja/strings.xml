@@ -76,5 +76,11 @@
 
     <string name="notification_default_message">このタスクを完了することを忘れずに！</string>
     <string name="notification_big_text">📝 タスク：%1$s\n\n🎯 リマインダー：%2$s</string>
+
+    <!-- Widget -->
+    <string name="widget_description">アクティブなタスクとモチベーション目標を表示</string>
+    <string name="widget_no_tasks">アクティブなタスクがありません。\nやる気アップを開いて追加してください。</string>
+    <string name="widget_tap_to_open">タップして開く →</string>
+    <string name="widget_active">アクティブ</string>
 </resources>
 

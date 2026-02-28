@@ -76,5 +76,11 @@
 
     <string name="notification_default_message">이 작업을 완료하는 것을 잊지 마세요!</string>
     <string name="notification_big_text">📝 작업: %1$s\n\n🎯 알림: %2$s</string>
+
+    <!-- Widget -->
+    <string name="widget_description">활성 작업과 동기 부여 목표를 표시합니다</string>
+    <string name="widget_no_tasks">활성 작업이 없습니다.\n동기부여 앱을 열어 추가하세요.</string>
+    <string name="widget_tap_to_open">탭하여 열기 →</string>
+    <string name="widget_active">활성</string>
 </resources>
 

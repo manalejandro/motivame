@@ -5,6 +5,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.manalejandro.motivame.data.TaskRepository
 import com.manalejandro.motivame.notifications.NotificationHelper
+import com.manalejandro.motivame.widget.MotivameWidget
 import kotlinx.coroutines.flow.first
 
 class DailyReminderWorker(
@@ -37,6 +38,9 @@ class DailyReminderWorker(
         taskToNotify?.let {
             notificationHelper.sendTaskReminder(it, soundEnabled)
         }
+
+        // Refrescar el widget con la meta actualizada
+        MotivameWidget.requestUpdate(applicationContext)
 
         return Result.success()
     }

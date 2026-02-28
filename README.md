@@ -34,6 +34,7 @@
 | 🔊 **Sonido configurable** | Activa o desactiva el sonido de las notificaciones |
 | 🌐 **Multiidioma** | 8 idiomas: Español · English · 中文 · Français · Deutsch · Português · 日本語 · 한국어 |
 | 🎨 **Material Design 3** | Interfaz moderna con gradientes, colores vibrantes y soporte edge-to-edge |
+| 🟣 **Widget** | Widget de escritorio que muestra la tarea activa y una meta aleatoria |
 
 ---
 
@@ -184,6 +185,7 @@ El idioma se selecciona desde **Configuración → Idioma** y se aplica instant�
 - [x] Ciclo de días configurable
 - [x] Multiidioma (8 idiomas)
 - [x] Sonido configurable independiente del canal Android
+- [x] Widget de pantalla de inicio
 - [ ] Estadísticas de cumplimiento
 - [ ] Widget de pantalla de inicio
 - [ ] Backup en la nube

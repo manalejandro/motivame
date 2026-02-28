@@ -81,6 +81,12 @@
     <!-- Notifications -->
     <string name="notification_default_message">Remember to complete this task!</string>
     <string name="notification_big_text">📝 Task: %1$s\n\n🎯 Remember: %2$s</string>
+
+    <!-- Widget -->
+    <string name="widget_description">Shows your active task and a motivational goal</string>
+    <string name="widget_no_tasks">No active tasks.\nOpen Motivate Me to add one.</string>
+    <string name="widget_tap_to_open">Tap to open →</string>
+    <string name="widget_active">active</string>
 </resources>
 
 
