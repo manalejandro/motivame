@@ -119,6 +119,8 @@ class TaskRepository(private val context: Context) {
                 put("goals", JSONArray(task.goals))
                 put("isActive", task.isActive)
                 put("createdAt", task.createdAt)
+                put("dailyReminders", task.dailyReminders)
+                put("repeatEveryDays", task.repeatEveryDays)
             }
             jsonArray.put(jsonObject)
         }
@@ -140,7 +142,9 @@ class TaskRepository(private val context: Context) {
                     title = jsonObject.getString("title"),
                     goals = goals,
                     isActive = jsonObject.getBoolean("isActive"),
-                    createdAt = jsonObject.getLong("createdAt")
+                    createdAt = jsonObject.getLong("createdAt"),
+                    dailyReminders = if (jsonObject.has("dailyReminders")) jsonObject.getInt("dailyReminders") else 3,
+                    repeatEveryDays = if (jsonObject.has("repeatEveryDays")) jsonObject.getInt("repeatEveryDays") else 3
                 )
             }
         } catch (e: Exception) {

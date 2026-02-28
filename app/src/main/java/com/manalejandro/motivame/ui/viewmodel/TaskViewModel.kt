@@ -23,6 +23,9 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
     private val _soundEnabled = MutableStateFlow(true)
     val soundEnabled: StateFlow<Boolean> = _soundEnabled.asStateFlow()
 
+    /** Callback que se invoca tras cualquier cambio en las tareas para reprogramar avisos */
+    var onRescheduleReminders: (() -> Unit)? = null
+
     init {
         loadTasks()
         loadSettings()
@@ -52,18 +55,21 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
     fun addTask(task: Task) {
         viewModelScope.launch {
             repository.addTask(task)
+            onRescheduleReminders?.invoke()
         }
     }
 
     fun updateTask(task: Task) {
         viewModelScope.launch {
             repository.updateTask(task)
+            onRescheduleReminders?.invoke()
         }
     }
 
     fun deleteTask(taskId: String) {
         viewModelScope.launch {
             repository.deleteTask(taskId)
+            onRescheduleReminders?.invoke()
         }
     }
 
@@ -71,6 +77,7 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             repository.setNotificationEnabled(enabled)
             _notificationEnabled.value = enabled
+            onRescheduleReminders?.invoke()
         }
     }
 

@@ -12,16 +12,30 @@ class DailyReminderWorker(
     params: WorkerParameters
 ) : CoroutineWorker(context, params) {
 
+    companion object {
+        const val KEY_TASK_ID = "task_id"
+    }
+
     override suspend fun doWork(): Result {
         val repository = TaskRepository(applicationContext)
         val notificationHelper = NotificationHelper(applicationContext)
 
-        val tasks = repository.tasks.first()
         val notificationEnabled = repository.notificationEnabled.first()
-        val soundEnabled = repository.soundEnabled.first()
+        if (!notificationEnabled) return Result.success()
 
-        if (notificationEnabled && tasks.isNotEmpty()) {
-            notificationHelper.sendMotivationalReminder(tasks, soundEnabled)
+        val soundEnabled = repository.soundEnabled.first()
+        val taskId = inputData.getString(KEY_TASK_ID)
+
+        val tasks = repository.tasks.first()
+
+        val taskToNotify = if (taskId != null) {
+            tasks.firstOrNull { it.id == taskId && it.isActive }
+        } else {
+            tasks.firstOrNull { it.isActive }
+        }
+
+        taskToNotify?.let {
+            notificationHelper.sendTaskReminder(it, soundEnabled)
         }
 
         return Result.success()

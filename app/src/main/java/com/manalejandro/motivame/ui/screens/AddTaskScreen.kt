@@ -1,6 +1,5 @@
 package com.manalejandro.motivame.ui.screens
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -26,6 +25,8 @@ fun AddTaskScreen(
     var taskTitle by remember { mutableStateOf("") }
     var currentGoal by remember { mutableStateOf("") }
     var goals by remember { mutableStateOf(listOf<String>()) }
+    var dailyReminders by remember { mutableStateOf(3) }
+    var repeatEveryDays by remember { mutableStateOf(3) }
 
     Scaffold(
         topBar = {
@@ -182,6 +183,166 @@ fun AddTaskScreen(
             }
 
             item {
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
+                    ) {
+                        Text(
+                            text = "🔔 Avisos diarios",
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = "Número de recordatorios entre las 9:00 y las 21:00",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            IconButton(
+                                onClick = { if (dailyReminders > 1) dailyReminders-- },
+                                enabled = dailyReminders > 1
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.KeyboardArrowDown,
+                                    contentDescription = "Reducir",
+                                    tint = if (dailyReminders > 1) MaterialTheme.colorScheme.primary
+                                           else MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+
+                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                Text(
+                                    text = "$dailyReminders",
+                                    style = MaterialTheme.typography.headlineMedium,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+                                Text(
+                                    text = if (dailyReminders == 1) "aviso" else "avisos",
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+
+                            IconButton(
+                                onClick = { if (dailyReminders < 10) dailyReminders++ },
+                                enabled = dailyReminders < 10
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.KeyboardArrowUp,
+                                    contentDescription = "Aumentar",
+                                    tint = if (dailyReminders < 10) MaterialTheme.colorScheme.primary
+                                           else MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                        }
+
+                        if (dailyReminders > 1) {
+                            Spacer(modifier = Modifier.height(8.dp))
+                            val intervalMinutes = 720 / (dailyReminders - 1)
+                            Text(
+                                text = "⏱️ Un aviso cada ${formatInterval(intervalMinutes)} aprox.",
+                                style = MaterialTheme.typography.bodySmall,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant
+                            )
+                        }
+                    }
+                }
+            }
+
+            item {
+                Card(
+                    modifier = Modifier.fillMaxWidth(),
+                    elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)
+                    ) {
+                        Text(
+                            text = "📅 Cada cuántos días",
+                            style = MaterialTheme.typography.titleMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = "Intervalo de días entre cada ciclo de avisos",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            IconButton(
+                                onClick = { if (repeatEveryDays > 1) repeatEveryDays-- },
+                                enabled = repeatEveryDays > 1
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.KeyboardArrowDown,
+                                    contentDescription = "Reducir días",
+                                    tint = if (repeatEveryDays > 1) MaterialTheme.colorScheme.primary
+                                           else MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+
+                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                Text(
+                                    text = "$repeatEveryDays",
+                                    style = MaterialTheme.typography.headlineMedium,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+                                Text(
+                                    text = if (repeatEveryDays == 1) "día" else "días",
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+
+                            IconButton(
+                                onClick = { if (repeatEveryDays < 30) repeatEveryDays++ },
+                                enabled = repeatEveryDays < 30
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Default.KeyboardArrowUp,
+                                    contentDescription = "Aumentar días",
+                                    tint = if (repeatEveryDays < 30) MaterialTheme.colorScheme.primary
+                                           else MaterialTheme.colorScheme.onSurfaceVariant
+                                )
+                            }
+                        }
+
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = if (repeatEveryDays == 1) "🔁 Avisos todos los días"
+                                   else "🔁 Avisos cada $repeatEveryDays días, repartidos para no coincidir",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                }
+            }
+
+            item {
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(
                     onClick = {
@@ -189,7 +350,9 @@ fun AddTaskScreen(
                             val newTask = Task(
                                 title = taskTitle.trim(),
                                 goals = goals,
-                                isActive = true
+                                isActive = true,
+                                dailyReminders = dailyReminders,
+                                repeatEveryDays = repeatEveryDays
                             )
                             viewModel.addTask(newTask)
                             onNavigateBack()
@@ -214,6 +377,12 @@ fun AddTaskScreen(
     }
 }
 
-
-
-
+private fun formatInterval(minutes: Int): String {
+    return if (minutes >= 60) {
+        val h = minutes / 60
+        val m = minutes % 60
+        if (m == 0) "${h}h" else "${h}h ${m}min"
+    } else {
+        "${minutes}min"
+    }
+}
