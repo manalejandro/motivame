@@ -6,7 +6,8 @@
     android:orientation="vertical"
     android:background="@drawable/widget_background"
     android:padding="16dp"
-    android:clickable="true">
+    android:clickable="true"
+    android:focusable="true">
 
     <!-- Cabecera: icono + nombre de la app -->
     <LinearLayout
@@ -20,7 +21,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="⭐ Motívame"
+            android:text="@string/widget_app_name"
             android:textColor="#FFFFFF"
             android:textSize="12sp"
             android:textStyle="bold"
@@ -30,9 +31,9 @@
             android:id="@+id/widget_status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="●"
+            android:text="@string/widget_status_indicator"
             android:textColor="#10B981"
-            android:textSize="10sp" />
+            android:textSize="11sp" />
 
     </LinearLayout>
 
@@ -41,7 +42,7 @@
         android:id="@+id/widget_task_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Tarea"
+        android:text="@string/widget_task_default"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -55,7 +56,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:text="🎯 Meta"
+        android:text="@string/widget_goal_default"
         android:textColor="#FFFFFF"
         android:textSize="13sp"
         android:alpha="0.85"
@@ -67,9 +68,9 @@
         android:id="@+id/widget_hint"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Toca para abrir →"
+        android:text="@string/widget_tap_to_open"
         android:textColor="#FFFFFF"
-        android:textSize="10sp"
+        android:textSize="11sp"
         android:alpha="0.55"
         android:gravity="end"
         android:layout_marginTop="4dp" />

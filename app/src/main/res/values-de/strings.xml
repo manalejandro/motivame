@@ -10,7 +10,6 @@
     <string name="empty_state_subtitle">Füge deine erste Aufgabe und Ziele hinzu, um motiviert zu bleiben</string>
     <string name="goals_label">🎯 Ziele:</string>
     <string name="task_paused">⏸️ Pausiert</string>
-    <string name="toggle_active_desc">Aufgabe aktivieren/pausieren</string>
     <string name="delete_task_desc">Löschen</string>
     <string name="delete_task_title">Aufgabe löschen</string>
     <string name="delete_task_confirm">Möchtest du \'%1$s\' wirklich löschen?</string>
@@ -72,15 +71,17 @@
 
     <string name="language_section">🌐 Sprache</string>
     <string name="language_desc">Wähle die Sprache der Anwendung</string>
-    <string name="language_restart_hint">Die App wird neu gestartet, um die Sprache anzuwenden</string>
 
     <string name="notification_default_message">Denke daran, diese Aufgabe abzuschließen!</string>
     <string name="notification_big_text">📝 Aufgabe: %1$s\n\n🎯 Denk daran: %2$s</string>
 
     <!-- Widget -->
+    <string name="widget_app_name">⭐ Motivier mich</string>
+    <string name="widget_status_indicator">●</string>
+    <string name="widget_task_default">Aufgabe</string>
+    <string name="widget_goal_default">🎯 Ziel</string>
     <string name="widget_description">Zeigt deine aktive Aufgabe und ein motivierendes Ziel</string>
     <string name="widget_no_tasks">Keine aktiven Aufgaben.\nÖffne Motivier mich, um eine hinzuzufügen.</string>
     <string name="widget_tap_to_open">Tippen zum Öffnen →</string>
-    <string name="widget_active">aktiv</string>
 </resources>
 

@@ -1,5 +1,6 @@
 package com.manalejandro.motivame.util
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.Configuration
 import java.util.Locale
@@ -19,6 +20,7 @@ object LocaleHelper {
         Language("ko", "🇰🇷", "한국어")
     )
 
+    @SuppressLint("AppBundleLocaleChanges")
     fun applyLocale(context: Context, languageCode: String): Context {
         val locale = Locale(languageCode)
         Locale.setDefault(locale)

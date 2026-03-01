@@ -10,7 +10,6 @@
     <string name="empty_state_subtitle">Adicione sua primeira tarefa e metas para se manter motivado</string>
     <string name="goals_label">🎯 Metas:</string>
     <string name="task_paused">⏸️ Pausada</string>
-    <string name="toggle_active_desc">Ativar/pausar tarefa</string>
     <string name="delete_task_desc">Excluir</string>
     <string name="delete_task_title">Excluir tarefa</string>
     <string name="delete_task_confirm">Tem certeza que deseja excluir \'%1$s\'?</string>
@@ -72,15 +71,17 @@
 
     <string name="language_section">🌐 Idioma</string>
     <string name="language_desc">Selecione o idioma do aplicativo</string>
-    <string name="language_restart_hint">O app será reiniciado para aplicar o idioma</string>
 
     <string name="notification_default_message">Lembre-se de completar esta tarefa!</string>
     <string name="notification_big_text">📝 Tarefa: %1$s\n\n🎯 Lembre-se: %2$s</string>
 
     <!-- Widget -->
+    <string name="widget_app_name">⭐ Motiva-me</string>
+    <string name="widget_status_indicator">●</string>
+    <string name="widget_task_default">Tarefa</string>
+    <string name="widget_goal_default">🎯 Meta</string>
     <string name="widget_description">Mostra sua tarefa ativa e uma meta motivacional</string>
     <string name="widget_no_tasks">Sem tarefas ativas.\nAbra Motiva-me para adicionar uma.</string>
     <string name="widget_tap_to_open">Toque para abrir →</string>
-    <string name="widget_active">ativa</string>
 </resources>
 

@@ -4,8 +4,8 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
+import androidx.core.net.toUri
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -361,7 +361,7 @@ fun SettingsScreen(
                                 color = MaterialTheme.colorScheme.onTertiaryContainer,
                                 textDecoration = TextDecoration.Underline,
                                 modifier = Modifier.clickable {
-                                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://manalejandro.com"))
+                                    val intent = Intent(Intent.ACTION_VIEW, "https://manalejandro.com".toUri())
                                     context.startActivity(intent)
                                 }
                             )
@@ -391,7 +391,7 @@ fun SettingsScreen(
                                 color = MaterialTheme.colorScheme.onTertiaryContainer,
                                 textDecoration = TextDecoration.Underline,
                                 modifier = Modifier.clickable {
-                                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(githubUrl))
+                                    val intent = Intent(Intent.ACTION_VIEW, githubUrl.toUri())
                                     context.startActivity(intent)
                                 }
                             )

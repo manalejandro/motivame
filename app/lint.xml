@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <!-- Advertencias de versiones disponibles: se mantienen como info, no error -->
+    <issue id="GradleDependency" severity="informational" />
+    <issue id="NewerVersionAvailable" severity="informational" />
+    <issue id="AndroidGradlePluginVersion" severity="informational" />
+
+    <!-- PluralsCandidate: las strings de resumen son intencionales (formato compacto) -->
+    <issue id="PluralsCandidate" severity="informational" />
+</lint>
+

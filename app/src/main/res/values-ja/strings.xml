@@ -10,7 +10,6 @@
     <string name="empty_state_subtitle">最初のタスクと目標を追加してモチベーションを維持しよう</string>
     <string name="goals_label">🎯 目標：</string>
     <string name="task_paused">⏸️ 一時停止中</string>
-    <string name="toggle_active_desc">タスクの有効/一時停止を切り替え</string>
     <string name="delete_task_desc">削除</string>
     <string name="delete_task_title">タスクを削除</string>
     <string name="delete_task_confirm">\'%1$s\' を削除してもよろしいですか？</string>
@@ -72,15 +71,17 @@
 
     <string name="language_section">🌐 言語</string>
     <string name="language_desc">アプリケーションの言語を選択してください</string>
-    <string name="language_restart_hint">言語を適用するためにアプリが再起動します</string>
 
     <string name="notification_default_message">このタスクを完了することを忘れずに！</string>
     <string name="notification_big_text">📝 タスク：%1$s\n\n🎯 リマインダー：%2$s</string>
 
     <!-- Widget -->
+    <string name="widget_app_name">⭐ やる気アップ</string>
+    <string name="widget_status_indicator">●</string>
+    <string name="widget_task_default">タスク</string>
+    <string name="widget_goal_default">🎯 目標</string>
     <string name="widget_description">アクティブなタスクとモチベーション目標を表示</string>
     <string name="widget_no_tasks">アクティブなタスクがありません。\nやる気アップを開いて追加してください。</string>
     <string name="widget_tap_to_open">タップして開く →</string>
-    <string name="widget_active">アクティブ</string>
 </resources>
 

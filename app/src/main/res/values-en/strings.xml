@@ -11,7 +11,6 @@
     <string name="empty_state_subtitle">Add your first task and goals to stay motivated</string>
     <string name="goals_label">🎯 Goals:</string>
     <string name="task_paused">⏸️ Paused</string>
-    <string name="toggle_active_desc">Toggle task active</string>
     <string name="delete_task_desc">Delete</string>
     <string name="delete_task_title">Delete task</string>
     <string name="delete_task_confirm">Are you sure you want to delete \'%1$s\'?</string>
@@ -76,17 +75,20 @@
     <!-- Language selector -->
     <string name="language_section">🌐 Language</string>
     <string name="language_desc">Select the application language</string>
-    <string name="language_restart_hint">The app will restart to apply the language</string>
 
     <!-- Notifications -->
     <string name="notification_default_message">Remember to complete this task!</string>
     <string name="notification_big_text">📝 Task: %1$s\n\n🎯 Remember: %2$s</string>
 
     <!-- Widget -->
+    <!-- Widget -->
+    <string name="widget_app_name">⭐ Motivate Me</string>
+    <string name="widget_status_indicator">●</string>
+    <string name="widget_task_default">Task</string>
+    <string name="widget_goal_default">🎯 Goal</string>
     <string name="widget_description">Shows your active task and a motivational goal</string>
     <string name="widget_no_tasks">No active tasks.\nOpen Motivate Me to add one.</string>
     <string name="widget_tap_to_open">Tap to open →</string>
-    <string name="widget_active">active</string>
 </resources>
 
 
