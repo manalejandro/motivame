@@ -14,7 +14,10 @@ class DailyReminderWorker(
 ) : CoroutineWorker(context, params) {
 
     companion object {
-        const val KEY_TASK_ID = "task_id"
+        const val KEY_TASK_ID         = "task_id"
+        const val KEY_SCHEDULE_HOUR   = "schedule_hour"
+        const val KEY_SCHEDULE_MINUTE = "schedule_minute"
+        const val KEY_CYCLE_DAYS      = "cycle_days"
     }
 
     override suspend fun doWork(): Result {
@@ -37,6 +40,27 @@ class DailyReminderWorker(
 
         taskToNotify?.let {
             notificationHelper.sendTaskReminder(it, soundEnabled)
+
+            // ✅ Auto-reprogramar este mismo aviso para el siguiente ciclo
+            val hour      = inputData.getInt(KEY_SCHEDULE_HOUR, -1)
+            val minute    = inputData.getInt(KEY_SCHEDULE_MINUTE, -1)
+            val cycleDays = inputData.getInt(KEY_CYCLE_DAYS, it.repeatEveryDays)
+
+            if (hour >= 0 && minute >= 0) {
+                // El siguiente disparo es exactamente [cycleDays] días después,
+                // a la misma hora local — se calcula con dayOffset = 0 porque
+                // la hora ya quedó en el futuro (hoy+cycleDays).
+                val delayMs = ReminderScheduler.calculateDelay(hour, minute, cycleDays)
+                ReminderScheduler.enqueueOne(
+                    context        = applicationContext,
+                    taskId         = it.id,
+                    hour           = hour,
+                    minute         = minute,
+                    cycleDays      = cycleDays,
+                    dayOffset      = 0,
+                    delayMs        = delayMs
+                )
+            }
         }
 
         // Refrescar el widget con la meta actualizada
@@ -45,4 +69,3 @@ class DailyReminderWorker(
         return Result.success()
     }
 }
-

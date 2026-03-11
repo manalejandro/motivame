@@ -9,7 +9,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.work.*
+import androidx.work.WorkManager
 import com.manalejandro.motivame.data.Task
 import com.manalejandro.motivame.data.TaskRepository
 import com.manalejandro.motivame.ui.screens.AddTaskScreen
@@ -18,14 +18,11 @@ import com.manalejandro.motivame.ui.screens.SettingsScreen
 import com.manalejandro.motivame.ui.theme.MotivameTheme
 import com.manalejandro.motivame.ui.viewmodel.TaskViewModel
 import com.manalejandro.motivame.util.LocaleHelper
-import com.manalejandro.motivame.worker.DailyReminderWorker
+import com.manalejandro.motivame.worker.ReminderScheduler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import java.util.Calendar
-import java.util.concurrent.TimeUnit
-import kotlin.random.Random
 
 class MainActivity : ComponentActivity() {
 
@@ -55,109 +52,20 @@ class MainActivity : ComponentActivity() {
 
     /**
      * Cancela todos los workers anteriores y programa nuevos recordatorios
-     * para cada tarea activa, distribuyendo los avisos entre las 9:00 y las 21:00.
-     * @param notificationsEnabled valor ya conocido, para evitar condición de carrera con DataStore.
-     *        Si es null, se lee del DataStore (solo al arrancar la app).
+     * para cada tarea activa usando [ReminderScheduler].
+     * @param notificationsEnabled valor ya conocido; si es null se lee de DataStore.
      */
     fun scheduleAllReminders(notificationsEnabled: Boolean? = null) {
         CoroutineScope(Dispatchers.IO).launch {
             val repository = TaskRepository(applicationContext)
-
-            // Cancelar todos los workers existentes de recordatorios de tareas
-            WorkManager.getInstance(applicationContext)
-                .cancelAllWorkByTag("task_reminder")
-
             val enabled = notificationsEnabled ?: repository.notificationEnabled.first()
-            if (!enabled) return@launch
-
-            val tasks = repository.tasks.first()
-            tasks.filter { it.isActive }.forEach { task ->
-                scheduleRemindersForTask(task)
+            if (!enabled) {
+                WorkManager.getInstance(applicationContext).cancelAllWorkByTag("task_reminder")
+                return@launch
             }
+            val tasks = repository.tasks.first()
+            ReminderScheduler.scheduleAll(applicationContext, tasks)
         }
-    }
-
-    private fun scheduleRemindersForTask(task: Task) {
-        val reminders = task.dailyReminders.coerceIn(1, 10)
-        val cycleDays = task.repeatEveryDays.coerceIn(1, 30)
-        val workManager = WorkManager.getInstance(applicationContext)
-
-        // Ventana de notificaciones: 9:00 a 21:00 (720 minutos disponibles)
-        val windowStartMinute = 9 * 60   // 540
-        val windowEndMinute   = 21 * 60  // 1260
-        val windowSize        = windowEndMinute - windowStartMinute  // 720
-
-        // Distribuir los N avisos en días distintos dentro del ciclo.
-        // Si reminders <= cycleDays cada aviso va a un día diferente;
-        // si hay más avisos que días, se reparten de forma ciclica.
-        val dayAssignments = (0 until reminders).map { i -> i % cycleDays }
-
-        // Generar horas aleatorias únicas (en minutos desde medianoche)
-        // Para cada aviso elegimos un minuto al azar dentro de [540, 1260)
-        // asegurándonos de que no coincida con ningún otro aviso ya asignado.
-        val usedMinutes = mutableSetOf<Int>()
-        val minuteAssignments = mutableListOf<Int>()
-
-        repeat(reminders) {
-            var candidate: Int
-            var attempts = 0
-            do {
-                candidate = windowStartMinute + Random.nextInt(windowSize)
-                attempts++
-                // Tras muchos intentos (espacio muy saturado) relajamos la condición
-                // exigiendo sólo minutos distintos en el mismo día
-            } while (usedMinutes.contains(candidate) && attempts < windowSize)
-            usedMinutes.add(candidate)
-            minuteAssignments.add(candidate)
-        }
-
-        for (i in 0 until reminders) {
-            val dayOffset    = dayAssignments[i]
-            val totalMinutes = minuteAssignments[i]
-            val targetHour   = totalMinutes / 60
-            val targetMinute = totalMinutes % 60
-
-            val delayMs = calculateDelayToTimeWithDayOffset(targetHour, targetMinute, dayOffset)
-
-            val inputData = workDataOf(DailyReminderWorker.KEY_TASK_ID to task.id)
-
-            val workRequest = OneTimeWorkRequestBuilder<DailyReminderWorker>()
-                .setInitialDelay(delayMs, TimeUnit.MILLISECONDS)
-                .setInputData(inputData)
-                .addTag("task_reminder")
-                .addTag("task_${task.id}")
-                .build()
-
-            workManager.enqueue(workRequest)
-        }
-    }
-
-
-    /**
-     * Calcula el retardo hasta la hora indicada más un desplazamiento de días.
-     * Si la hora ya pasó hoy, se mueve al día siguiente antes de aplicar el offset.
-     */
-    private fun calculateDelayToTimeWithDayOffset(hour: Int, minute: Int, dayOffset: Int): Long {
-        val now = System.currentTimeMillis()
-        val calendar = Calendar.getInstance().apply {
-            timeInMillis = now
-            set(Calendar.HOUR_OF_DAY, hour)
-            set(Calendar.MINUTE, minute)
-            set(Calendar.SECOND, 0)
-            set(Calendar.MILLISECOND, 0)
-        }
-
-        // Si ya pasó esa hora hoy, mover a mañana antes de aplicar el offset
-        if (calendar.timeInMillis <= now) {
-            calendar.add(Calendar.DAY_OF_YEAR, 1)
-        }
-
-        // Aplicar el offset de días adicionales
-        if (dayOffset > 0) {
-            calendar.add(Calendar.DAY_OF_YEAR, dayOffset)
-        }
-
-        return calendar.timeInMillis - now
     }
 }
 
